@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 interface Props {
   text?: string;
@@ -18,7 +18,7 @@ const BottomButton = ({
   return (
     <>
       <View style={state === "activated" ? styles.activated : styles.disabled}>
-        {text}
+        <Text>{text}</Text>
       </View>
     </>
   );

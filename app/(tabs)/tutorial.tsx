@@ -1,42 +1,59 @@
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import BottomButton from '@/components/tutorial/BottomButton';
-import { useState } from 'react';
-import { StyleSheet, TouchableOpacity, useWindowDimensions, View } from "react-native";
+import BottomButton from "@/components/tutorial/BottomButton";
+import Carousel from "@/components/tutorial/Carousel";
+import { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  useWindowDimensions,
+  View,
+} from "react-native";
+
+export interface CarouselItem {
+  id: number;
+  keyword?: string;
+  title: string;
+  description?: string;
+}
 
 const tutorial = () => {
   const { height } = useWindowDimensions();
   const [step, setStep] = useState(0);
+  const carouselData: CarouselItem[] = [
+    { id: 1, title: "유학생을\n위한\n아르바이트\n도움 서비스" },
+    {
+      id: 2,
+      keyword: "맞춤형 알바 공고",
+      title: "를\n찾을 수 있어요",
+      description: "여러분의 스펙에 맞게, 신청 가능한\n공고를 찾아드려요.",
+    },
+    {
+      id: 3,
+      keyword: "서류 ",
+      title: "작업을 간소화해요",
+      description:
+        "표준 근로계약서, 시간제 취업 허가서 등\n서류 작업을 간편하게 진행해요.",
+    },
+    {
+      id: 4,
+      keyword: "근로캘린더",
+      title: "를 작성하고,\n급여를 관리할 수 있어요",
+      description:
+        "근로캘린더에 알바 스케줄을 기록하고,\n월급을 계산해보세요.",
+    },
+  ];
+
   return (
     <>
       <ThemedView style={[styles.background, { height }]}>
-        <ThemedView style={styles.titleContainer}>
-          <ThemedText style={styles.title}>
-            유학생을 <br />
-            위한 <br />
-            아르바이트 도움 서비스
-          </ThemedText>
-        </ThemedView>
-        <ThemedView style={styles.stepContainer}>
-          <ThemedView
-            style={step === 0 ? styles.stepCurrent : styles.step}
-            onPress={() => setStep(0)}
-          />
-          <ThemedView
-            style={step === 1 ? styles.stepCurrent : styles.step}
-            onPress={() => setStep(1)}
-          />
-          <ThemedView
-            style={step === 2 ? styles.stepCurrent : styles.step}
-            onPress={() => setStep(2)}
-          />
-          <ThemedView
-            style={step === 3 ? styles.stepCurrent : styles.step}
-            onPress={() => setStep(3)}
-          />
-        </ThemedView>
-        <BottomButton state={step === 3 ? 'activated' : 'disabled'} text='시작하기'/>
+        <Carousel data={carouselData} />
+        <BottomButton
+          state={step === 3 ? "activated" : "disabled"}
+          text="시작하기"
+        />
       </ThemedView>
     </>
   );
@@ -68,27 +85,5 @@ const styles = StyleSheet.create({
     fontFamily: "Inter",
     fontWeight: "700",
     lineHeight: 57.6,
-  },
-  stepContainer: {
-    backgroundColor: "#ffffff",
-    width: 64.93,
-    height: 8,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 16,
-  },
-  stepCurrent: {
-    width: 16.23,
-    height: 8,
-    backgroundColor: "#FFB65A",
-    borderRadius: 4,
-  },
-  step: {
-    width: 8,
-    height: 8,
-    backgroundColor: "#E3E1E8",
-    borderRadius: 9999,
   },
 });
