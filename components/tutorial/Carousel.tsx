@@ -8,22 +8,24 @@ import {
   NativeSyntheticEvent,
   NativeScrollEvent,
   Text,
+  Image,
 } from "react-native";
 
 const { width: windowWidth } = Dimensions.get("window");
 
 interface CarouselProps {
   data: CarouselItem[];
+  step: number;
+  onSlide: (nextStep: number) => void;
 }
 
-const Carousel: React.FC<CarouselProps> = ({ data }) => {
-  const [activeIndex, setActiveIndex] = useState<number>(0);
+const Carousel: React.FC<CarouselProps> = ({ data, step, onSlide }) => {
   const flatListRef = useRef<FlatList<CarouselItem>>(null);
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const scrollPosition = event.nativeEvent.contentOffset.x;
     const index = Math.round(scrollPosition / windowWidth);
-    setActiveIndex(index);
+    onSlide(index);
   };
 
   const renderCarouselItem = (item: CarouselItem) => {
@@ -35,13 +37,18 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
       );
     }
     return (
-      <View>
-        <Text style={styles.subTitle}>
-          <Text style={styles.keyword}>{item.keyword}</Text>
-          {item.title}
-        </Text>
-        <Text>{item.description && item.description}</Text>
-      </View>
+      <>
+        <View style={styles.imgContainer}>
+          <Image />
+        </View>
+        <View style={styles.textContainer}>
+          <Text style={styles.subTitle}>
+            <Text style={styles.keyword}>{item.keyword}</Text>
+            {item.title}
+          </Text>
+          <Text>{item.description && item.description}</Text>
+        </View>
+      </>
     );
   };
 
@@ -65,7 +72,7 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
             key={index}
             style={[
               styles.paginationDot,
-              index === activeIndex ? styles.paginationDotActive : null,
+              index === step ? styles.paginationDotActive : null,
             ]}
           />
         ))}
@@ -75,8 +82,17 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  imgContainer: {
+    flex: 1.5,
+    backgroundColor: '#FFB65A',
+    width: '100%',
+  },
+  textContainer: {
     flex: 1,
+    paddingTop: 43,
+  },
+  container: {
+    flex: 4,
   },
   title: {
     color: "black",
@@ -138,7 +154,7 @@ const styles = StyleSheet.create({
     fontFamily: "Inter",
     fontWeight: "400",
     lineHeight: 28.8,
-  }
+  },
 });
 
 export default Carousel;

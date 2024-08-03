@@ -1,15 +1,10 @@
-import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import BottomButton from "@/components/tutorial/BottomButton";
 import Carousel from "@/components/tutorial/Carousel";
 import { useState } from "react";
 import {
   StyleSheet,
-  Text,
-  TouchableOpacity,
   useWindowDimensions,
-  View,
 } from "react-native";
 
 export interface CarouselItem {
@@ -21,7 +16,7 @@ export interface CarouselItem {
 
 const tutorial = () => {
   const { height } = useWindowDimensions();
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState<number>(0);
   const carouselData: CarouselItem[] = [
     { id: 1, title: "유학생을\n위한\n아르바이트\n도움 서비스" },
     {
@@ -49,7 +44,7 @@ const tutorial = () => {
   return (
     <>
       <ThemedView style={[styles.background, { height }]}>
-        <Carousel data={carouselData} />
+        <Carousel data={carouselData} step={step} onSlide={setStep}/>
         <BottomButton
           state={step === 3 ? "activated" : "disabled"}
           text="시작하기"

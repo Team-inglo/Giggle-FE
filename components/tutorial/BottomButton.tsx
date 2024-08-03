@@ -15,10 +15,17 @@ const BottomButton = ({
   onPress,
   ...otherProps
 }: Props) => {
+  const handlePress = () => {
+    state === 'activated' && onPress
+  }
   return (
     <>
-      <View style={state === "activated" ? styles.activated : styles.disabled}>
-        <Text>{text}</Text>
+      <View style={styles.container}>
+        <View
+          style={state === "activated" ? styles.activated : styles.disabled}
+        >
+          <Text style={state === "activated" ? styles.activatedText : styles.disabledText} onPress={handlePress}>{text}</Text>
+        </View>
       </View>
     </>
   );
@@ -27,6 +34,9 @@ const BottomButton = ({
 export default BottomButton;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   activated: {
     width: 311,
     height: 50,
@@ -36,14 +46,8 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     justifyContent: "center",
     alignItems: "center",
-    gap: 8,
     display: "flex",
-    color: "white",
-    fontSize: 16,
-    fontFamily: "Inter",
-    fontWeight: "400",
-    lineHeight: 16,
-    marginTop: 20,
+
   },
   disabled: {
     width: 311,
@@ -57,13 +61,19 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     justifyContent: "center",
     alignItems: "center",
-    gap: 8,
     display: "flex",
-    color: '#B3B3B3',
+
+  },
+  activatedText: {
+    color: "#ffffff",
     fontSize: 16,
-    fontFamily: "Inter",
     fontWeight: "400",
     lineHeight: 16,
-    marginTop: 20,
   },
+  disabledText : {
+    color: "#B3B3B3",
+    fontSize: 16,
+    fontWeight: "400",
+    lineHeight: 16,
+  }
 });
