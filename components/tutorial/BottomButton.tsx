@@ -7,17 +7,12 @@ interface Props {
   onPress?: () => void;
 }
 
-const BottomButton = ({
-  text,
-  state,
-  onPress,
-  ...otherProps
-}: Props) => {
+const BottomButton = ({ text, state, onPress, ...otherProps }: Props) => {
   const handlePress = () => {
-    if(state === 'activated' && onPress) {
+    if (state === "activated" && onPress) {
       onPress();
     }
-  }
+  };
   return (
     <>
       <View style={styles.container}>
@@ -25,7 +20,13 @@ const BottomButton = ({
           style={state === "activated" ? styles.activated : styles.disabled}
           onPress={handlePress}
         >
-          <Text style={state === "activated" ? styles.activatedText : styles.disabledText}>{text}</Text>
+          <Text
+            style={
+              state === "activated" ? styles.activatedText : styles.disabledText
+            }
+          >
+            {text}
+          </Text>
         </Pressable>
       </View>
     </>
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-end",
     display: "flex",
-    bottom: 80,
+    bottom: 30,
   },
   activated: {
     width: 311,
@@ -52,7 +53,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     display: "flex",
-
   },
   disabled: {
     width: 311,
@@ -67,7 +67,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     display: "flex",
-
   },
   activatedText: {
     color: "#ffffff",
@@ -75,10 +74,10 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     lineHeight: 16,
   },
-  disabledText : {
+  disabledText: {
     color: "#B3B3B3",
     fontSize: 16,
     fontWeight: "400",
     lineHeight: 16,
-  }
+  },
 });
