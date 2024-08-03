@@ -28,7 +28,7 @@ const Input = ({
             onChangeText={onChangeText}
             value={info}
             placeholder={placeholder}
-            {...(isVisible ? { secureTextEntry: isVisible} : {})}
+            {...(isVisible !== undefined && isVisible === false ? { secureTextEntry: !isVisible} : {})}
           />
           {children && children}
         </View>
