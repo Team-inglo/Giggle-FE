@@ -84,8 +84,8 @@ const Carousel: React.FC<CarouselProps> = ({ data, step, onSlide }) => {
 const styles = StyleSheet.create({
   imgContainer: {
     flex: 1.5,
-    backgroundColor: '#FFB65A',
-    width: '100%',
+    backgroundColor: "#FFB65A",
+    width: "100%",
   },
   textContainer: {
     flex: 1,

@@ -7,7 +7,7 @@ interface Props {
   onClick: Dispatch<SetStateAction<string>>;
 }
 
-const LanguagePicker: React.FC<Props> = ({ value, onClick}: Props) => {
+const LanguagePicker: React.FC<Props> = ({ value, onClick }: Props) => {
   const [open, setOpen] = useState(false);
 
   const [items, setItems] = useState([
