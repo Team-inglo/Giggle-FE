@@ -1,31 +1,32 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 interface Props {
   text?: string;
-  nextUrl?: string;
   state: "disabled" | "activated";
   onPress?: () => void;
 }
 
 const BottomButton = ({
   text,
-  nextUrl,
   state,
   onPress,
   ...otherProps
 }: Props) => {
   const handlePress = () => {
-    state === 'activated' && onPress
+    if(state === 'activated' && onPress) {
+      onPress();
+    }
   }
   return (
     <>
       <View style={styles.container}>
-        <View
+        <Pressable
           style={state === "activated" ? styles.activated : styles.disabled}
+          onPress={handlePress}
         >
-          <Text style={state === "activated" ? styles.activatedText : styles.disabledText} onPress={handlePress}>{text}</Text>
-        </View>
+          <Text style={state === "activated" ? styles.activatedText : styles.disabledText}>{text}</Text>
+        </Pressable>
       </View>
     </>
   );
@@ -36,6 +37,10 @@ export default BottomButton;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: "center",
+    justifyContent: "flex-end",
+    display: "flex",
+    bottom: 80,
   },
   activated: {
     width: 311,

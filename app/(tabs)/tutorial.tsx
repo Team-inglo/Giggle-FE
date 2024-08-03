@@ -1,6 +1,7 @@
 import { ThemedView } from "@/components/ThemedView";
 import BottomButton from "@/components/tutorial/BottomButton";
 import Carousel from "@/components/tutorial/Carousel";
+import { useRouter } from 'expo-router';
 import { useState } from "react";
 import {
   StyleSheet,
@@ -14,9 +15,12 @@ export interface CarouselItem {
   description?: string;
 }
 
+
 const tutorial = () => {
   const { height } = useWindowDimensions();
   const [step, setStep] = useState<number>(0);
+  const router = useRouter();
+
   const carouselData: CarouselItem[] = [
     { id: 1, title: "유학생을\n위한\n아르바이트\n도움 서비스" },
     {
@@ -48,6 +52,7 @@ const tutorial = () => {
         <BottomButton
           state={step === 3 ? "activated" : "disabled"}
           text="시작하기"
+          onPress={() => router.push('/language')}
         />
       </ThemedView>
     </>
