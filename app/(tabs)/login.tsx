@@ -17,6 +17,7 @@ import Input from "@/components/login/Input";
 export interface userLoginInfo {
   email: string;
   password: string;
+  passwordCheck?: string;
 }
 
 const LoginPage = () => {

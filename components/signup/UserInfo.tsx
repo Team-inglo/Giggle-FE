@@ -1,14 +1,16 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import InfoItem from './InfoItem';
-import { UserInfoState } from '../../constants/Users';
+import React from "react";
+import { View, StyleSheet } from "react-native";
+import InfoItem from "./InfoItem";
+import {
+  UserInfoState,
+  userRegistrationCardState,
+} from "../../constants/Users";
 
 interface Props {
-  userInfo: UserInfoState;
+  userInfo: UserInfoState | userRegistrationCardState;
 }
 
 const UserInfo = ({ userInfo }: Props) => {
-
   return (
     <View style={styles.container}>
       {Object.entries(userInfo).map(([key, value]) => (
@@ -20,10 +22,10 @@ const UserInfo = ({ userInfo }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    backgroundColor: 'white',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    backgroundColor: "white",
   },
 });
 

@@ -4,29 +4,27 @@ import UploadPassPort from "@/components/signup/UploadPassport";
 import UserInfo from "@/components/signup/UserInfo";
 import { ThemedView } from "@/components/ThemedView";
 import BottomButton from "@/components/tutorial/BottomButton";
-import { UserInfoState } from "@/constants/Users";
+import { userRegistrationCardState } from "@/constants/Users";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
 
-const SignUpPage = () => {
+const AlienRegistrationCardPage = () => {
   const { height } = useWindowDimensions();
-  const [userInfo, setUserInfo] = useState<UserInfoState>({
-    여권번호: "dwaldjldaldlsadh",
+  const [userInfo, setUserInfo] = useState<userRegistrationCardState>({
+    등록번호: "dwaldjldaldlsadh",
     이름: "dwaldjld",
-    체류자격: "D-2-2",
-    체류기간: "30 Days",
-    발급일: "2019.01.01",
-    국적: "REPUBLIC OF KOREA",
+    국적: "D-2-2",
+    체류자격: "30 Days",
+    발급일자: "2019.01.01",
+    발급번호: "1234",
   });
   const [modalVisible, setModalVisible] = useState(false);
   const router = useRouter();
   const handleButtonClick = () => {
     const validStatus =
-      userInfo.체류자격.includes("D-2") || userInfo.체류자격.includes("D-4");
-    validStatus
-      ? router.push("/signup/foreignRegistrationCard")
-      : setModalVisible(true);
+      userInfo.국적.includes("D-2") || userInfo.국적.includes("D-4");
+    validStatus ? router.push("/signup/idPw") : setModalVisible(true);
   };
   return (
     <>
@@ -34,7 +32,8 @@ const SignUpPage = () => {
         <PrevButton />
         <View style={styles.titleContainer}>
           <Text style={styles.subTitle}>
-            <Text style={styles.keyword}>여권</Text>을{"\n"}선택해주세요
+            <Text style={styles.keyword}>외국인등록증</Text>을{"\n"}
+            입력해주세요.
           </Text>
         </View>
         <UserInfo userInfo={userInfo} />
@@ -43,7 +42,7 @@ const SignUpPage = () => {
           description="5MB 이하만 가능합니다. (png, jpeg 파일)"
         />
         <BottomButton
-          state={userInfo.여권번호 !== "" ? "activated" : "disabled"}
+          state={userInfo.등록번호 !== "" ? "activated" : "disabled"}
           text="인증"
           onPress={handleButtonClick}
         />
@@ -60,7 +59,7 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default AlienRegistrationCardPage;
 
 const styles = StyleSheet.create({
   background: {

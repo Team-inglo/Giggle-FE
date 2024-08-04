@@ -4,10 +4,11 @@ import UploadFileIcon from "@/assets/images/FilePlus.svg";
 import { UserInfoState } from "../../constants/Users";
 import * as ImagePicker from "expo-image-picker";
 interface Props {
-  userInfo: UserInfoState;
+  title: string;
+  description: string;
 }
 
-const UploadPassPort = () => {
+const UploadPassPort = ({ title, description }: Props) => {
   const [imageUri, setImageUri] = useState<string | null>(null);
 
   const pickImage = async () => {
@@ -36,10 +37,8 @@ const UploadPassPort = () => {
         <View style={styles.container}>
           <UploadFileIcon />
           <View style={styles.labelContainer}>
-            <Text style={styles.label}>여권을 올려주세요.</Text>
-            <Text style={styles.value}>
-              5MB 이하만 가능합니다.(png, jpeg 파일)
-            </Text>
+            <Text style={styles.label}>{title}</Text>
+            <Text style={styles.value}>{description}</Text>
           </View>
         </View>
       </View>
