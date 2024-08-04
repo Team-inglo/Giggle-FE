@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import UploadFileIcon from "@/assets/images/FilePlus.svg";
-import { UserInfoState } from "../../constants/Users";
 import * as ImagePicker from "expo-image-picker";
 interface Props {
   title: string;

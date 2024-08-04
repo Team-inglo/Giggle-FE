@@ -1,12 +1,9 @@
 import { ThemedView } from "@/components/ThemedView";
 import BottomButton from "@/components/tutorial/BottomButton";
 import Carousel from "@/components/tutorial/Carousel";
-import { useRouter } from 'expo-router';
+import { useRouter } from "expo-router";
 import { useState } from "react";
-import {
-  StyleSheet,
-  useWindowDimensions,
-} from "react-native";
+import { StyleSheet, useWindowDimensions } from "react-native";
 
 export interface CarouselItem {
   id: number;
@@ -14,7 +11,6 @@ export interface CarouselItem {
   title: string;
   description?: string;
 }
-
 
 const tutorial = () => {
   const { height } = useWindowDimensions();
@@ -40,19 +36,18 @@ const tutorial = () => {
       id: 4,
       keyword: "근로캘린더",
       title: "를 작성하고,\n급여를 관리할 수 있어요",
-      description:
-        "근로캘린더에 알바 스케줄을 기록하고,\n월급을 계산해보세요.",
+      description: "근로캘린더에 알바 스케줄을 기록하고,\n월급을 계산해보세요.",
     },
   ];
 
   return (
     <>
       <ThemedView style={[styles.background, { height }]}>
-        <Carousel data={carouselData} step={step} onSlide={setStep}/>
+        <Carousel data={carouselData} step={step} onSlide={setStep} />
         <BottomButton
           state={step === 3 ? "activated" : "disabled"}
           text="시작하기"
-          onPress={() => router.push('/language')}
+          onPress={() => router.push("/language")}
         />
       </ThemedView>
     </>

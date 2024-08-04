@@ -16,7 +16,7 @@ export default function TabLayout() {
       }}
       initialRouteName="(tabs)/tutorial"
     >
-      <Tabs.Screen name='tutorial' options={{title: 'Tutorial'}} />
+      <Tabs.Screen name="tutorial" options={{ title: "Tutorial" }} />
     </Tabs>
   );
 }
