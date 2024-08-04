@@ -1,9 +1,10 @@
 import PrevButton from "@/components/common/PrevButton";
-import UploadPassPort from '@/components/signup/UploadPassport';
+import InvalidModal from "@/components/signup/InvalidModal";
+import UploadPassPort from "@/components/signup/UploadPassport";
 import UserInfo from "@/components/signup/UserInfo";
 import { ThemedView } from "@/components/ThemedView";
 import BottomButton from "@/components/tutorial/BottomButton";
-import { UserInfoState } from '@/constants/Users';
+import { UserInfoState } from "@/constants/Users";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
@@ -11,15 +12,24 @@ import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
 const SignUpPage = () => {
   const { height } = useWindowDimensions();
   const [userInfo, setUserInfo] = useState<UserInfoState>({
-    여권번호: 'dwaldjldaldlsadh',
-    이름: 'dwaldjld',
-    체류자격: 'D-2-2',
-    체류기간: '30 Days',
-    발급일: '2019.01.01',
-    국적: 'REPUBLIC OF KOREA',
+    여권번호: "dwaldjldaldlsadh",
+    이름: "dwaldjld",
+    체류자격: "D-5-2",
+    체류기간: "30 Days",
+    발급일: "2019.01.01",
+    국적: "REPUBLIC OF KOREA",
   });
+  const [modalVisible, setModalVisible] = useState(false);
   const router = useRouter();
 
+  const handleButtonClick = () => {
+    if (
+      !userInfo.체류자격.includes("D-2") &&
+      !userInfo.체류자격.includes("D-4")
+    ) {
+      setModalVisible(true);
+    }
+  };
   return (
     <>
       <ThemedView style={[styles.background, { height }]}>
@@ -31,7 +41,19 @@ const SignUpPage = () => {
         </View>
         <UserInfo userInfo={userInfo} />
         <UploadPassPort />
-        <BottomButton state={userInfo.여권번호 !== "" ? 'activated': 'disabled'} text="인증"/>
+        <BottomButton
+          state={userInfo.여권번호 !== "" ? "activated" : "disabled"}
+          text="인증"
+          onPress={handleButtonClick}
+        />
+        {modalVisible && (
+          <InvalidModal
+            visible={modalVisible}
+            onClose={() => setModalVisible(false)}
+            title="체류자격 부적합"
+            message="체류자격이 D-2 혹은 D-4인 경우에만 회원가입이 가능합니다."
+          />
+        )}
       </ThemedView>
     </>
   );
