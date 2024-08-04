@@ -1,12 +1,14 @@
+import { useRouter } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 const ToSignUpPage = () => {
+  const router = useRouter();
   return (
     <View style={styles.container}>
       <Text style={styles.text}>
         <Text style={styles.keyword}>Giggle</Text>이 처음이신가요?
       </Text>
-      <Pressable style={styles.toSignUpContainer}>
+      <Pressable style={styles.toSignUpContainer} onPress={() => router.push('/signup')}>
         <Text style={styles.toSignUpButton}>가입하기</Text>
       </Pressable>
     </View>
