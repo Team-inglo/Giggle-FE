@@ -4,7 +4,6 @@ import {
   Pressable,
   StyleSheet,
   Text,
-  TextInput,
   useWindowDimensions,
   View,
 } from "react-native";
@@ -18,6 +17,7 @@ import Input from "@/components/login/Input";
 export interface userLoginInfo {
   email: string;
   password: string;
+  passwordCheck?: string;
 }
 
 const LoginPage = () => {

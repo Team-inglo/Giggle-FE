@@ -1,4 +1,4 @@
-import { TouchableOpacity, View, type ViewProps } from "react-native";
+import { StyleSheet, TouchableOpacity, View, type ViewProps } from "react-native";
 
 import { useThemeColor } from "@/hooks/useThemeColor";
 
@@ -8,7 +8,7 @@ export type ThemedViewProps = ViewProps & {
   onPress?: () => void;
   children?: React.ReactNode;
 };
-
+const MAX_WIDTH = 390;
 export function ThemedView({
   style,
   lightColor,
@@ -23,7 +23,7 @@ export function ThemedView({
   );
 
   const content = (
-    <View style={[{ backgroundColor }, style]} {...otherProps}>
+    <View style={[{ backgroundColor }, style, styles.container]} {...otherProps}>
       {children}
     </View>
   );
@@ -34,3 +34,9 @@ export function ThemedView({
 
   return content;
 }
+
+const styles = StyleSheet.create({
+  container: {
+    maxWidth: MAX_WIDTH,
+  }
+})

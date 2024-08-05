@@ -28,7 +28,9 @@ const Input = ({
             onChangeText={onChangeText}
             value={info}
             placeholder={placeholder}
-            {...(isVisible !== undefined && isVisible === false ? { secureTextEntry: !isVisible} : {})}
+            {...(isVisible !== undefined && isVisible === false
+              ? { secureTextEntry: !isVisible }
+              : {})}
           />
           {children && children}
         </View>
@@ -46,6 +48,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     height: 76,
     gap: 8,
+    width: "100%",
   },
   inputContainer: {
     display: "flex",
