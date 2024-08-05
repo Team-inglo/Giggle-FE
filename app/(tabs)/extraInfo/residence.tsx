@@ -1,6 +1,6 @@
 import BottomPanel from "@/components/extraInfo/BottomPanel";
+import MapWebView from "@/components/extraInfo/MapWebView";
 import PageHeader from "@/components/extraInfo/PageHeader";
-import InfoItem from "@/components/signup/InfoItem";
 import InvalidModal from "@/components/signup/InvalidModal";
 import UploadPassPort from "@/components/signup/UploadPassport";
 import { ThemedView } from "@/components/ThemedView";
@@ -8,33 +8,29 @@ import { SignupContext } from "@/store/signupContext";
 import { useRouter } from "expo-router";
 import { useContext, useState } from "react";
 import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
+import WebView from "react-native-webview";
 
 const SignUpPage = () => {
   const { height } = useWindowDimensions();
-  const { societyUniteProgram } = useContext(SignupContext);
+  const { university, degree } = useContext(SignupContext);
   const [modalVisible, setModalVisible] = useState(false);
   const [imageUri, setImageUri] = useState<string | null>(null);
   const router = useRouter();
   const handleButtonClick = () => {
-    imageUri !== null && router.push("/extraInfo/sejong");
+    imageUri !== null && router.push("/extraInfo/done");
   };
   return (
     <>
       <ThemedView style={[styles.background, { height }]}>
         <PageHeader
-          currentPage={2}
+          currentPage={5}
           allPage={5}
-          keyword="사회통합프로그램 증명서"
+          keyword="거주지"
           title={"를\n등록해주세요."}
           description="맞춤형 아르바이트 광고 제공을 위해 필요해요."
         />
-        <InfoItem label="등급" value={String(societyUniteProgram)} />
-        <UploadPassPort
-          title="사회통합프로그램 증명서를 올려주세요."
-          description="5MB 이하만 가능합니다. (png, jpeg 파일)"
-          imageUri={imageUri}
-          setImageUri={setImageUri}
-        />
+
+        <MapWebView />
         <BottomPanel
           state={imageUri !== null ? "activated" : "disabled"}
           text="다음"
@@ -64,5 +60,10 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     justifyContent: "center",
     paddingHorizontal: 25,
+  },
+  container: {
+    flex: 1,
+    width: "100%",
+    height: 400,
   },
 });

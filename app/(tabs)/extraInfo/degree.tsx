@@ -11,26 +11,30 @@ import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
 
 const SignUpPage = () => {
   const { height } = useWindowDimensions();
-  const { societyUniteProgram } = useContext(SignupContext);
+  const { university, degree } = useContext(SignupContext);
   const [modalVisible, setModalVisible] = useState(false);
   const [imageUri, setImageUri] = useState<string | null>(null);
   const router = useRouter();
   const handleButtonClick = () => {
-    imageUri !== null && router.push("/extraInfo/sejong");
+    imageUri !== null && router.push("/extraInfo/residence");
   };
   return (
     <>
       <ThemedView style={[styles.background, { height }]}>
         <PageHeader
-          currentPage={2}
+          currentPage={4}
           allPage={5}
-          keyword="사회통합프로그램 증명서"
+          keyword="성적증명서"
           title={"를\n등록해주세요."}
           description="맞춤형 아르바이트 광고 제공을 위해 필요해요."
         />
-        <InfoItem label="등급" value={String(societyUniteProgram)} />
+        <View style={styles.infoContainer}>
+          <InfoItem label="대학" value={String(university)} />
+          <InfoItem label="학점" value={String(degree)} />
+        </View>
+
         <UploadPassPort
-          title="사회통합프로그램 증명서를 올려주세요."
+          title="성적증명서를 올려주세요."
           description="5MB 이하만 가능합니다. (png, jpeg 파일)"
           imageUri={imageUri}
           setImageUri={setImageUri}
@@ -65,4 +69,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: 25,
   },
+  infoContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: "center",
+    justifyContent: "flex-start",
+  }
 });

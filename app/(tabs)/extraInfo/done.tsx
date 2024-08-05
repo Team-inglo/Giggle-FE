@@ -9,7 +9,7 @@ const DonePage = () => {
   const router = useRouter();
   useEffect(() => {
     setTimeout(() => {
-      router.push("/extraInfo");
+      router.push("/tutorial");
     }, 2000);
   }, []);
   return (
@@ -21,7 +21,7 @@ const DonePage = () => {
               <CheckIcon width="31" height="31" stroke="white" />
             </View>
           </View>
-          <Text style={styles.titleText}>회원가입 완료</Text>
+          <Text style={styles.titleText}>추가 정보 입력 완료</Text>
         </View>
       </ThemedView>
     </>
