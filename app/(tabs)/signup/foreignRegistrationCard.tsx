@@ -20,6 +20,7 @@ const AlienRegistrationCardPage = () => {
     발급번호: "1234",
   });
   const [modalVisible, setModalVisible] = useState(false);
+  const [imageUri, setImageUri] = useState<string | null>(null);
   const router = useRouter();
   const handleButtonClick = () => {
     const validStatus =
@@ -40,6 +41,8 @@ const AlienRegistrationCardPage = () => {
         <UploadPassPort
           title="외국인등록증을 올려주세요."
           description="5MB 이하만 가능합니다. (png, jpeg 파일)"
+          imageUri={imageUri}
+          setImageUri={setImageUri}
         />
         <BottomButton
           state={userInfo.등록번호 !== "" ? "activated" : "disabled"}
