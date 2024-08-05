@@ -18,7 +18,8 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#ffffff",
+        "permissions": ["INTERNET"]
       }
     },
     "web": {
@@ -28,9 +29,12 @@
     },
     "plugins": [
       "expo-router",
-      ["expo-image-picker", {
-        "photosPermission": "The app accesses your photos to let you upload"
-      }]
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you upload"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
