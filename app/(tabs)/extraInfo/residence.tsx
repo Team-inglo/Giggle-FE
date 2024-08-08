@@ -1,23 +1,28 @@
 import BottomPanel from "@/components/extraInfo/BottomPanel";
 import MapWebView from "@/components/extraInfo/MapWebView";
 import PageHeader from "@/components/extraInfo/PageHeader";
-import InvalidModal from "@/components/signup/InvalidModal";
-import UploadPassPort from "@/components/signup/UploadPassport";
+import { SkipModal } from "@/components/signup/InvalidModal";
 import { ThemedView } from "@/components/ThemedView";
 import { SignupContext } from "@/store/signupContext";
 import { useRouter } from "expo-router";
 import { useContext, useState } from "react";
-import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
-import WebView from "react-native-webview";
+import { StyleSheet, useWindowDimensions } from "react-native";
 
 const SignUpPage = () => {
   const { height } = useWindowDimensions();
   const { university, degree } = useContext(SignupContext);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [whichModalIsVisible, setWhichModalIsVisible] = useState("");
   const [imageUri, setImageUri] = useState<string | null>(null);
+  const [address, setAddress] = useState({
+    main: "",
+    sub: "",
+  });
   const router = useRouter();
   const handleButtonClick = () => {
-    imageUri !== null && router.push("/extraInfo/done");
+    setWhichModalIsVisible("confirm");
+  };
+  const handleConfirm = () => {
+    router.push("/extraInfo/done");
   };
   return (
     <>
@@ -35,16 +40,22 @@ const SignUpPage = () => {
           state={imageUri !== null ? "activated" : "disabled"}
           text="다음"
           onPress={handleButtonClick}
-          onSkip={() => setModalVisible(true)}
+          onSkip={() => setWhichModalIsVisible("skip")}
         />
-        {modalVisible && (
-          <InvalidModal
-            visible={modalVisible}
-            onClose={() => setModalVisible(false)}
-            title="체류자격 부적합"
-            message="체류자격이 D-2 혹은 D-4인 경우에만 회원가입이 가능합니다."
-          />
-        )}
+        <SkipModal
+          visible={whichModalIsVisible === "skip"}
+          onClose={() => setWhichModalIsVisible("")}
+          title="Skip 하시겠습니까?"
+          message="맞춤형 서비스를 받지 못할 수도 있습니다."
+          onPress={() => router.push("/")}
+        />
+        <SkipModal
+          visible={whichModalIsVisible === "confirm"}
+          onClose={() => setWhichModalIsVisible("")}
+          title="등록된 주소가 확실한가요?"
+          message="거주지를 기반으로 아르바이트를 추천해드려요."
+          onPress={handleConfirm}
+        />
       </ThemedView>
     </>
   );
