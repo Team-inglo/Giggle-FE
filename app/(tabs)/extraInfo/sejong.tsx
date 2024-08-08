@@ -1,13 +1,13 @@
 import BottomPanel from "@/components/extraInfo/BottomPanel";
 import PageHeader from "@/components/extraInfo/PageHeader";
 import InfoItem from "@/components/signup/InfoItem";
-import InvalidModal from "@/components/signup/InvalidModal";
+import { SkipModal } from "@/components/signup/InvalidModal";
 import UploadPassPort from "@/components/signup/UploadPassport";
 import { ThemedView } from "@/components/ThemedView";
 import { SignupContext } from "@/store/signupContext";
 import { useRouter } from "expo-router";
 import { useContext, useState } from "react";
-import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
+import { StyleSheet, useWindowDimensions } from "react-native";
 
 const SignUpPage = () => {
   const { height } = useWindowDimensions();
@@ -42,11 +42,11 @@ const SignUpPage = () => {
           onSkip={() => setModalVisible(true)}
         />
         {modalVisible && (
-          <InvalidModal
+          <SkipModal
             visible={modalVisible}
             onClose={() => setModalVisible(false)}
-            title="체류자격 부적합"
-            message="체류자격이 D-2 혹은 D-4인 경우에만 회원가입이 가능합니다."
+            title="Skip 하시겠습니까?"
+            message="맞춤형 서비스를 받지 못할 수도 있습니다."
           />
         )}
       </ThemedView>
