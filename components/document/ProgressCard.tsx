@@ -60,7 +60,13 @@ const ProgressCard = ({
           </React.Fragment>
         ))}
       </View>
-      <Text style={isComplete ? styles.currentMessage : styles.currentMessageProgressing}>{currentMessage}</Text>
+      <Text
+        style={
+          isComplete ? styles.currentMessage : styles.currentMessageProgressing
+        }
+      >
+        {currentMessage}
+      </Text>
     </View>
   );
 };
@@ -152,8 +158,8 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     fontWeight: "500",
     padding: 20,
-    color: '#b3261e',
-  }
+    color: "#b3261e",
+  },
 });
 
 export default ProgressCard;

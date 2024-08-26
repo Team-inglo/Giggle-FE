@@ -22,7 +22,6 @@ const Menu = () => {
     },
   };
 
-  // 나중에 페이지 연결하기
   const mainMenu = useMemo<menuItem[]>(
     () => [
       {
@@ -30,12 +29,12 @@ const Menu = () => {
         src: "/document" as Href<string>,
         icon: (
           <DocumentIcon
-          stroke={
-            pathName === "/document"
-              ? theme.colors.mainColor
-              : theme.colors.gray
-          }
-          strokeWidth={2.5}
+            stroke={
+              pathName === "/document"
+                ? theme.colors.mainColor
+                : theme.colors.gray
+            }
+            strokeWidth={2.5}
           />
         ),
       },
@@ -44,12 +43,12 @@ const Menu = () => {
         src: "/notice" as Href<string>,
         icon: (
           <NoticeIcon
-          stroke={
-            pathName === "/notice"
-              ? theme.colors.mainColor
-              : theme.colors.gray
-          }
-          strokeWidth={2}
+            stroke={
+              pathName === "/notice"
+                ? theme.colors.mainColor
+                : theme.colors.gray
+            }
+            strokeWidth={2}
           />
         ),
       },
@@ -59,9 +58,7 @@ const Menu = () => {
         icon: (
           <HomeIcon
             stroke={
-              pathName === "/"
-                ? theme.colors.mainColor
-                : theme.colors.gray
+              pathName === "/" ? theme.colors.mainColor : theme.colors.gray
             }
             strokeWidth={2}
           />
@@ -72,12 +69,12 @@ const Menu = () => {
         src: "/calendar" as Href<string>,
         icon: (
           <CalendarIcon
-          stroke={
-            pathName === "/calendar"
-              ? theme.colors.mainColor
-              : theme.colors.gray
-          }
-          strokeWidth={2.5}
+            stroke={
+              pathName === "/calendar"
+                ? theme.colors.mainColor
+                : theme.colors.gray
+            }
+            strokeWidth={2.5}
           />
         ),
       },
@@ -86,12 +83,12 @@ const Menu = () => {
         src: "/chatbot" as Href<string>,
         icon: (
           <ChatIcon
-          stroke={
-            pathName === "/chatbot"
-              ? theme.colors.mainColor
-              : theme.colors.gray
-          }
-          strokeWidth={2.5}
+            stroke={
+              pathName === "/chatbot"
+                ? theme.colors.mainColor
+                : theme.colors.gray
+            }
+            strokeWidth={2.5}
           />
         ),
       },
@@ -108,7 +105,13 @@ const Menu = () => {
           onPress={() => router.push(item.src)}
         >
           {item.icon}
-          <Text style={pathName === item.src ? styles.menuTextCurrent : styles.menuText}>{item.name}</Text>
+          <Text
+            style={
+              pathName === item.src ? styles.menuTextCurrent : styles.menuText
+            }
+          >
+            {item.name}
+          </Text>
         </Pressable>
       ))}
     </View>
@@ -146,5 +149,5 @@ const styles = StyleSheet.create({
     fontSize: 11,
     textAlign: "center",
     color: "#FFB65A",
-  }
+  },
 });
