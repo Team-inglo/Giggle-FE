@@ -6,8 +6,54 @@ interface Props {
   state: "disabled" | "activated";
   onPress?: () => void;
   onSkip?: () => void;
+  noticeMessage? : string;
+  isComplete?: boolean;
 }
 
+export const DocumentBottomPanel = ({
+  text,
+  state,
+  onPress,
+  onSkip,
+  noticeMessage,
+  isComplete,
+  ...otherProps
+}: Props) => {
+  const handlePress = () => {
+    if (state === "activated" && onPress) {
+      onPress();
+    }
+  };
+  return (
+    <>
+      <View style={styles.wrapper}>
+        <View style={styles.noticeMessageContainer}>
+        <Text style={isComplete ? styles.currentMessage : styles.currentMessageProgressing}>{noticeMessage}</Text>
+        </View>
+
+        <View style={styles.container}>
+          <Pressable style={styles.noticeDetail} onPress={onSkip}>
+            <Text style={styles.noticeDetailText}>공고 상세보기</Text>
+          </Pressable>
+          <Pressable
+            style={state === "activated" ? [styles.activated, styles.documentButton] : [styles.disabled, styles.documentButton]}
+            onPress={handlePress}
+          >
+            <Text
+              style={
+                state === "activated"
+                  ? styles.activatedText
+                  : styles.disabledText
+              }
+            >
+              {text}
+            </Text>
+          </Pressable>
+        </View>
+      </View>
+    </>
+  );
+};
 const BottomPanel = ({
   text,
   state,
@@ -65,6 +111,31 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
+  noticeMessageContainer: {
+    width: '100%',
+    textAlign: 'left',
+    marginBottom: 10,
+  },
+  noticeDetail: {
+    width: "40%",
+    height: 50,
+    padding: 12,
+    backgroundColor: "#FFB65A",
+    borderRadius: 8,
+    overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "center",
+    display: "flex",
+  },
+  noticeDetailText: {
+    color: "black",
+    fontSize: 16,
+    fontWeight: "400",
+    lineHeight: 16,
+  },
+  documentButton: {
+    width: '55%',
+  },
   skip: {
     padding: 12,
     height: 40,
@@ -116,5 +187,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "400",
     lineHeight: 16,
+  },
+  currentMessage: {
+    fontSize: 11,
+    letterSpacing: 1,
+    lineHeight: 16,
+    fontWeight: "500",
+  },
+  currentMessageProgressing: {
+    fontSize: 11,
+    letterSpacing: 1,
+    lineHeight: 16,
+    fontWeight: "500",
+    color: "#b3261e",
   },
 });
