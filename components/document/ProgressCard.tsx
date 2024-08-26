@@ -1,31 +1,22 @@
-import { useRouter } from 'expo-router';
+import { useRouter } from "expo-router";
 import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 
-type Step = {
+export type Step = {
   label: string;
   status: "completed" | "current" | "upcoming";
 };
 
 type ProgressTrackerProps = {
   steps: Step[];
-  date: string;
-  currentMessage: string;
-  isComplete: boolean;
+  date?: string;
+  currentMessage?: string;
+  isComplete?: boolean;
 };
 
-const ProgressCard = ({
-  steps,
-  date,
-  currentMessage,
-  isComplete,
-}: ProgressTrackerProps) => {
-  const router = useRouter();
+export const ProgressBar = ({ steps }: ProgressTrackerProps) => {
   return (
-    <Pressable style={styles.container} onPress={() => router.push("/documentDetail")}>
-      <Text style={styles.title}>파리바게트</Text>
-      <Text style={styles.dateTitle}>신청일</Text>
-      <Text style={styles.date}>{date}</Text>
+    <View>
       <View style={styles.progressBar}>
         {steps.map((step, index) => (
           <React.Fragment key={index}>
@@ -62,6 +53,38 @@ const ProgressCard = ({
           </React.Fragment>
         ))}
       </View>
+    </View>
+  );
+};
+
+const ProgressCard = ({
+  steps,
+  date,
+  currentMessage,
+  isComplete,
+}: ProgressTrackerProps) => {
+  const router = useRouter();
+  return (
+    <Pressable
+      style={styles.container}
+      onPress={() =>
+        router.push({
+          pathname: "/documentDetail",
+          params: {
+            data: JSON.stringify({
+              steps: steps,
+              date: date,
+              currentMessage: currentMessage,
+              isComplete: isComplete,
+            }),
+          },
+        })
+      }
+    >
+      <Text style={styles.title}>파리바게트</Text>
+      <Text style={styles.dateTitle}>신청일</Text>
+      <Text style={styles.date}>{date}</Text>
+      <ProgressBar steps={steps} />
       <Text
         style={
           isComplete ? styles.currentMessage : styles.currentMessageProgressing
