@@ -10,6 +10,42 @@ interface infoTabProps {
   onType: Dispatch<SetStateAction<employInfo>>;
 }
 
+interface TabSelectorProps {
+  currentTab: string;
+  onPress: Dispatch<SetStateAction<string>>;
+  tab1: string;
+  tab2: string;
+}
+
+export const TabSelector = ({currentTab, onPress, tab1, tab2}: TabSelectorProps) => {
+  return (
+    <>
+        <View style={styles.tabContainer}>
+          <Pressable
+            onPress={() => onPress(tab1)}
+            style={
+              currentTab === tab1
+                ? [styles.tab, styles.selected]
+                : styles.tab
+            }
+          >
+            <Text>{tab1}</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => onPress(tab2)}
+            style={
+              currentTab === tab2
+                ? [styles.tab, styles.selected]
+                : styles.tab
+            }
+          >
+            <Text>{tab2}</Text>
+          </Pressable>
+        </View>
+    </>
+  )
+}
+
 const InfoTab = ({
   currentTab,
   phoneNumber,
@@ -20,28 +56,7 @@ const InfoTab = ({
   return (
     <>
       <View style={styles.background}>
-        <View style={styles.tabContainer}>
-          <Pressable
-            onPress={() => onPress("phone")}
-            style={
-              currentTab === "phone"
-                ? [styles.tab, styles.selected]
-                : styles.tab
-            }
-          >
-            <Text>전화번호</Text>
-          </Pressable>
-          <Pressable
-            onPress={() => onPress("email")}
-            style={
-              currentTab === "email"
-                ? [styles.tab, styles.selected]
-                : styles.tab
-            }
-          >
-            <Text>이메일</Text>
-          </Pressable>
-        </View>
+        <TabSelector currentTab={currentTab} onPress={onPress} tab1="전화번호" tab2="이메일"/>
         <View style={styles.inputContainer}>
           {currentTab === "phone" ? (
             <TextInput
