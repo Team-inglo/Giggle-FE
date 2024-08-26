@@ -1,5 +1,6 @@
+import { useRouter } from 'expo-router';
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 
 type Step = {
   label: string;
@@ -19,8 +20,9 @@ const ProgressCard = ({
   currentMessage,
   isComplete,
 }: ProgressTrackerProps) => {
+  const router = useRouter();
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={() => router.push("/documentDetail")}>
       <Text style={styles.title}>파리바게트</Text>
       <Text style={styles.dateTitle}>신청일</Text>
       <Text style={styles.date}>{date}</Text>
@@ -67,7 +69,7 @@ const ProgressCard = ({
       >
         {currentMessage}
       </Text>
-    </View>
+    </Pressable>
   );
 };
 
