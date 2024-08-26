@@ -10,12 +10,14 @@ type ProgressTrackerProps = {
   steps: Step[];
   date: string;
   currentMessage: string;
+  isComplete: boolean;
 };
 
 const ProgressCard = ({
   steps,
   date,
   currentMessage,
+  isComplete,
 }: ProgressTrackerProps) => {
   return (
     <View style={styles.container}>
@@ -58,7 +60,7 @@ const ProgressCard = ({
           </React.Fragment>
         ))}
       </View>
-      <Text style={styles.currentMessage}>{currentMessage}</Text>
+      <Text style={isComplete ? styles.currentMessage : styles.currentMessageProgressing}>{currentMessage}</Text>
     </View>
   );
 };
@@ -89,7 +91,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   date: {
-    fontSize: 16,
+    fontSize: 11,
+    letterSpacing: 1,
+    lineHeight: 16,
+    fontWeight: "500",
+    fontFamily: "Roboto-Medium",
     marginBottom: 20,
     paddingHorizontal: 20,
   },
@@ -140,6 +146,14 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     padding: 20,
   },
+  currentMessageProgressing: {
+    fontSize: 11,
+    letterSpacing: 1,
+    lineHeight: 16,
+    fontWeight: "500",
+    padding: 20,
+    color: '#b3261e',
+  }
 });
 
 export default ProgressCard;

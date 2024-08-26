@@ -30,6 +30,7 @@ const ProgressPage = () => {
             ]}
             date="1/19/24"
             currentMessage="현재 고용주가 표준 근로계약서를 확인 중이에요."
+            isComplete={false}
         />
         <Menu />
       </ThemedView>
