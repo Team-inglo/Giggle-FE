@@ -1,6 +1,6 @@
 import React from "react";
-import PrevButton from '../common/PrevButton';
-import { StyleSheet, Text, View } from 'react-native';
+import PrevButton from "../common/PrevButton";
+import { StyleSheet, Text, View } from "react-native";
 
 interface PageHeaderProps {
   currentPage: number;
@@ -10,20 +10,26 @@ interface PageHeaderProps {
   description?: string;
 }
 
-const PageHeader = ({ currentPage, allPage, keyword, title, description }: PageHeaderProps) => {
+const PageHeader = ({
+  currentPage,
+  allPage,
+  keyword,
+  title,
+  description,
+}: PageHeaderProps) => {
   return (
     <>
-      <PrevButton />
+      <PrevButton isLogo={false} />
       <View style={styles.titleContainer}>
         <Text style={styles.subTitle}>
           <Text style={styles.allPage}>
-            <Text style={styles.currentPage}>{currentPage}</Text>/{allPage}{"\n"}
+            <Text style={styles.currentPage}>{currentPage}</Text>/{allPage}
+            {"\n"}
           </Text>
-          <Text style={styles.keyword}>{keyword}</Text>{title}
+          <Text style={styles.keyword}>{keyword}</Text>
+          {title}
         </Text>
-        <Text style={styles.description}>
-          {description && description}
-        </Text>
+        <Text style={styles.description}>{description && description}</Text>
       </View>
     </>
   );

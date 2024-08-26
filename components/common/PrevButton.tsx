@@ -1,16 +1,27 @@
 import React from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import PrevIcon from "@/assets/images/CaretDown.svg";
+import LogoIcon from "@/assets/images/Giggle.svg";
 import { useRouter } from "expo-router";
 
-const PrevButton = () => {
+interface ButtonProps {
+  isLogo: boolean;
+}
+
+const PrevButton = ({ isLogo }: ButtonProps) => {
   const router = useRouter();
   return (
     <>
       <View style={styles.background}>
-        <Pressable onPress={() => router.back()}>
-          <PrevIcon />
-        </Pressable>
+        {isLogo ? (
+          <Pressable onPress={() => router.push("/")}>
+            <LogoIcon />
+          </Pressable>
+        ) : (
+          <Pressable onPress={() => router.back()}>
+            <PrevIcon />
+          </Pressable>
+        )}
       </View>
     </>
   );

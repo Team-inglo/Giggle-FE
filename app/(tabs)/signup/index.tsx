@@ -32,7 +32,7 @@ const SignUpPage = () => {
   return (
     <>
       <ThemedView style={[styles.background, { height }]}>
-        <PrevButton />
+        <PrevButton isLogo={false} />
         <View style={styles.titleContainer}>
           <Text style={styles.subTitle}>
             <Text style={styles.keyword}>여권</Text>을{"\n"}선택해주세요

@@ -12,7 +12,7 @@ const ProgressPage = () => {
   return (
     <>
       <ThemedView style={[styles.background, { height }]}>
-        <PrevButton />
+        <PrevButton isLogo={true} />
         <TabSelector
           currentTab={currentTab}
           onPress={setCurrentTab}

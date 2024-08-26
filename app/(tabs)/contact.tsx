@@ -24,7 +24,7 @@ const ContactPage = () => {
   return (
     <>
       <ThemedView style={[styles.background, { height }]}>
-        <PrevButton />
+        <PrevButton isLogo={false} />
         <View style={styles.titleContainer}>
           <Text style={styles.subTitle}>
             <Text style={styles.keyword}>표준 근로계약서</Text>를{"\n"}작성할

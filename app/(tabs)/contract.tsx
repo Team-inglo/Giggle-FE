@@ -13,7 +13,7 @@ const ContractPage = () => {
   return (
     <>
       <ThemedView style={[styles.background, { height }]}>
-        <PrevButton />
+        <PrevButton isLogo={false} />
         <View style={styles.titleContainer}>
           <Text style={styles.subTitle}>
             표준 근로계약서를{"\n"}작성해야 해요.

@@ -16,7 +16,7 @@ const TermsPage = () => {
   return (
     <>
       <ThemedView style={[styles.background, { height }]}>
-        <PrevButton />
+        <PrevButton isLogo={false} />
         <View style={styles.titleContainer}>
           <Text style={styles.subTitle}>
             <Text style={styles.keyword}>약관 동의</Text>가 필요해요
