@@ -53,7 +53,7 @@ const IdPwPage = () => {
   return (
     <>
       <ThemedView style={[styles.background, { height }]}>
-        <PrevButton />
+        <PrevButton isLogo={false} />
         <View style={styles.titleContainer}>
           <Text style={styles.subTitle}>회원가입</Text>
         </View>

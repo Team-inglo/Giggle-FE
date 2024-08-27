@@ -9,6 +9,8 @@ interface CustomModalPopupProps {
   title: string;
   message: string;
   onPress?: () => void;
+  buttonText?: string;
+  isDelete?: boolean;
 }
 
 const InvalidModal: React.FC<CustomModalPopupProps> = ({
@@ -53,6 +55,8 @@ export const SkipModal: React.FC<CustomModalPopupProps> = ({
   title,
   message,
   onPress,
+  buttonText,
+  isDelete,
 }) => {
   const router = useRouter();
   return (
@@ -77,10 +81,10 @@ export const SkipModal: React.FC<CustomModalPopupProps> = ({
           </View>
           <View style={skipModalStyles.buttonContainer}>
             <TouchableOpacity
-              style={skipModalStyles.skipButton}
+              style={isDelete ? skipModalStyles.deleteButton : skipModalStyles.skipButton}
               onPress={onPress && onPress}
             >
-              <Text style={skipModalStyles.buttonText}>Skip</Text>
+              <Text style={skipModalStyles.buttonText}>{buttonText}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={skipModalStyles.button} onPress={onClose}>
               <Text style={skipModalStyles.buttonText}>취소</Text>
@@ -229,6 +233,16 @@ const skipModalStyles = StyleSheet.create({
     backgroundColor: "#ffb65a",
     borderWidth: 1,
     borderColor: "#ffb65a",
+    marginTop: 15,
+  },
+  deleteButton: {
+    borderRadius: 8,
+    padding: 8,
+    marginLeft: 36,
+    elevation: 2,
+    backgroundColor: "#C00F0C",
+    borderWidth: 1,
+    borderColor: "#C00F0C",
     marginTop: 15,
   },
   button: {

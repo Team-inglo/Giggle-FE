@@ -1,19 +1,23 @@
-import { useRef } from "react";
+import PrevButton from '@/components/common/PrevButton';
+import MapWebView from "@/components/extraInfo/MapWebView";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useRef } from 'react';
 import { StyleSheet, View } from "react-native";
-import { WebView, WebViewMessageEvent } from "react-native-webview";
+import WebView, { WebViewMessageEvent } from 'react-native-webview';
 
-const MapWebView = () => {
+const DocumentWritePage = () => {
   const webViewRef = useRef(null);
 
   const onMessage = (event: WebViewMessageEvent) => {
     const data = JSON.parse(event.nativeEvent.data);
   };
-
+  const {url} = useLocalSearchParams();
   return (
     <View style={styles.container}>
+      <PrevButton isLogo={false} />
       <WebView
         style={styles.container}
-        source={{ uri: "https://giggle-fe.vercel.app/map" }}
+        source={{ uri: url as string }}
         scalesPageToFit={false}
         maximumZoomScale={0.8}
         minimumZoomScale={0.8}

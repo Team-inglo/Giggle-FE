@@ -15,3 +15,8 @@ export interface userRegistrationCardState {
   발급일자: string;
   발급번호: string;
 }
+
+export interface employInfo {
+  전화번호 : string;
+  이메일 : string;
+}

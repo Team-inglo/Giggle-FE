@@ -47,6 +47,7 @@ const SignUpPage = () => {
             onClose={() => setModalVisible(false)}
             title="Skip 하시겠습니까?"
             message="맞춤형 서비스를 받지 못할 수도 있습니다."
+            buttonText='Skip'
           />
         )}
       </ThemedView>

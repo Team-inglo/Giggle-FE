@@ -48,6 +48,7 @@ const SignUpPage = () => {
           title="Skip 하시겠습니까?"
           message="맞춤형 서비스를 받지 못할 수도 있습니다."
           onPress={() => router.push("/")}
+          buttonText='Skip'
         />
         <SkipModal
           visible={whichModalIsVisible === "confirm"}
@@ -55,6 +56,7 @@ const SignUpPage = () => {
           title="등록된 주소가 확실한가요?"
           message="거주지를 기반으로 아르바이트를 추천해드려요."
           onPress={handleConfirm}
+          buttonText='예'
         />
       </ThemedView>
     </>
