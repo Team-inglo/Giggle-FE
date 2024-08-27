@@ -1,16 +1,35 @@
 import React from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import PrevIcon from "@/assets/images/CaretDown.svg";
+import LogoIcon from "@/assets/images/Giggle.svg";
+import DeleteIcon from "@/assets/icons/delete.svg";
 import { useRouter } from "expo-router";
 
-const PrevButton = () => {
+interface ButtonProps {
+  isLogo: boolean;
+  isDeletable?: boolean;
+  setOpenModal?: () => void;
+}
+
+const PrevButton = ({ isLogo, isDeletable, setOpenModal }: ButtonProps) => {
   const router = useRouter();
   return (
     <>
       <View style={styles.background}>
-        <Pressable onPress={() => router.back()}>
-          <PrevIcon />
-        </Pressable>
+        {isLogo ? (
+          <Pressable onPress={() => router.push("/")}>
+            <LogoIcon />
+          </Pressable>
+        ) : (
+          <Pressable onPress={() => router.back()}>
+            <PrevIcon />
+          </Pressable>
+        )}
+        {isDeletable && (
+          <Pressable onPress={setOpenModal}>
+            <DeleteIcon />
+          </Pressable>
+        )}
       </View>
     </>
   );
@@ -28,6 +47,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-start",
+    justifyContent: "space-between",
   },
 });

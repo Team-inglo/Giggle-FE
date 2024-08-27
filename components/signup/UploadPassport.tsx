@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import UploadFileIcon from "@/assets/images/FilePlus.svg";
 import * as ImagePicker from "expo-image-picker";
 interface Props {
   title: string;
   description: string;
+  imageUri: string | null;
+  setImageUri: Dispatch<SetStateAction<string | null>>;
 }
 
-const UploadPassPort = ({ title, description }: Props) => {
-  const [imageUri, setImageUri] = useState<string | null>(null);
-
+const UploadPassPort = ({
+  title,
+  description,
+  imageUri,
+  setImageUri,
+}: Props) => {
   const pickImage = async () => {
     const permissionResult =
       await ImagePicker.requestMediaLibraryPermissionsAsync();

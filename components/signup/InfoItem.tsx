@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     lineHeight: 19.6,
     color: "#757575",
+    marginLeft: 25,
   },
 });
 
