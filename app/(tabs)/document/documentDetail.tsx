@@ -11,17 +11,24 @@ import {
   View,
 } from "react-native";
 import NextIcon from "@/assets/icons/next_Icon.svg";
+import { useState } from "react";
+import { SkipModal } from "@/components/signup/InvalidModal";
 
 const DocumentDetailPage = () => {
   const { height } = useWindowDimensions();
   const { data } = useLocalSearchParams();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { steps, date, currentMessage, isComplete } = JSON.parse(
     data as string
   );
   return (
     <>
       <ThemedView style={[styles.background, { height }]}>
-        <PrevButton isLogo={false} isDeletable={true} />
+        <PrevButton
+          isLogo={false}
+          isDeletable={true}
+          setOpenModal={() => setIsModalOpen(true)}
+        />
         <View style={styles.titleContainer}>
           <Text style={styles.subTitle}>파리바게트 파트타이머 모집</Text>
           <View style={styles.progressBadge}>
@@ -61,6 +68,16 @@ const DocumentDetailPage = () => {
           noticeMessage={currentMessage}
           isComplete={isComplete}
         />
+        {isModalOpen && (
+          <SkipModal
+            visible={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            title="삭제하시겠습니까?"
+            message="삭제 후 복구가 불가능합니다."
+            buttonText="삭제"
+            isDelete={true}
+          />
+        )}
       </ThemedView>
     </>
   );

@@ -8,9 +8,10 @@ import { useRouter } from "expo-router";
 interface ButtonProps {
   isLogo: boolean;
   isDeletable?: boolean;
+  setOpenModal?: () => void;
 }
 
-const PrevButton = ({ isLogo, isDeletable }: ButtonProps) => {
+const PrevButton = ({ isLogo, isDeletable, setOpenModal }: ButtonProps) => {
   const router = useRouter();
   return (
     <>
@@ -24,7 +25,11 @@ const PrevButton = ({ isLogo, isDeletable }: ButtonProps) => {
             <PrevIcon />
           </Pressable>
         )}
-        {isDeletable && <DeleteIcon />}
+        {isDeletable && (
+          <Pressable onPress={setOpenModal}>
+            <DeleteIcon />
+          </Pressable>
+        )}
       </View>
     </>
   );
