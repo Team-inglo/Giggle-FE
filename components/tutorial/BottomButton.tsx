@@ -9,6 +9,7 @@ interface Props {
   employerInfo?: { 전화번호: string; 이메일: string };
   onPress?: () => void;
   onLater?: () => void;
+  onReinput?: () => void;
 }
 
 export const BottomButtonWithText = ({
@@ -17,6 +18,7 @@ export const BottomButtonWithText = ({
   state,
   onPress,
   onLater,
+  onReinput,
   isRepresentive,
   employerInfo,
 }: Props) => {
@@ -39,9 +41,16 @@ export const BottomButtonWithText = ({
           페이지에서{"\n"}진행 상황을 확인할 수 있어요.
         </Text>
         <BottomButton text={buttonText} state={state} onPress={onPress} />
-        <Pressable onPress={onLater} style={styles.pressableTextContainer}>
-          <Text style={styles.pressableText}>나중에 보낼래요.</Text>
-        </Pressable>
+        <View style={styles.buttonContainer}>
+          <Pressable onPress={onLater} style={styles.pressableTextContainer}>
+            <Text style={styles.pressableText}>나중에 보낼래요.</Text>
+          </Pressable>
+          {isRepresentive && <Pressable onPress={onReinput} style={styles.pressableTextContainer}>
+            <Text style={styles.pressableText}>
+              고용주를 다른 연락처로 변경하고 싶어요.
+            </Text>
+          </Pressable>}
+        </View>
       </View>
     </>
   );
@@ -155,13 +164,18 @@ const styles = StyleSheet.create({
     fontFamily: "NotoSans-Regular",
     bottom: 90,
   },
+  buttonContainer: {
+    display: "flex",
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-between",
+  },
   keywordText: {
     fontWeight: "700",
     fontFamily: "NotoSans-Bold",
   },
   pressableTextContainer: {
     bottom: 20,
-    width: 80,
     borderBottomWidth: 1,
     borderBottomColor: "black",
   },

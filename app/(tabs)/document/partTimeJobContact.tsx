@@ -57,6 +57,7 @@ const PartTimeJobContactPage = () => {
           buttonText={isRepresentive ? "작성하기" : "다음"}
           onPress={handleButtonClick}
           onLater={() => setIsModalOpen(true)}
+          onReinput={() => setIsRepresentive(false)}
           isRepresentive={isRepresentive}
           employerInfo={employerInfo}
         />
