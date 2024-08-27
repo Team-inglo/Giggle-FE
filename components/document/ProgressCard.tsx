@@ -69,7 +69,7 @@ const ProgressCard = ({
       style={styles.container}
       onPress={() =>
         router.push({
-          pathname: "/documentDetail",
+          pathname: "/document/documentDetail",
           params: {
             data: JSON.stringify({
               steps: steps,
