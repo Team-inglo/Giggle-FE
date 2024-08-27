@@ -8,7 +8,6 @@ export type ThemedViewProps = ViewProps & {
   onPress?: () => void;
   children?: React.ReactNode;
 };
-const MAX_WIDTH = 390;
 export function ThemedView({
   style,
   lightColor,
@@ -37,6 +36,5 @@ export function ThemedView({
 
 const styles = StyleSheet.create({
   container: {
-    maxWidth: MAX_WIDTH,
   }
 })
