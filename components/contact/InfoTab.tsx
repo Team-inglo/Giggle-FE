@@ -58,7 +58,7 @@ const InfoTab = ({
       <View style={styles.background}>
         <TabSelector currentTab={currentTab} onPress={onPress} tab1="전화번호" tab2="이메일"/>
         <View style={styles.inputContainer}>
-          {currentTab === "phone" ? (
+          {currentTab === "전화번호" ? (
             <TextInput
               value={phoneNumber}
               style={styles.input}

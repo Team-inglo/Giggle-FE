@@ -3,20 +3,42 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 
 interface Props {
   text?: string;
+  buttonText?: string;
   state: "disabled" | "activated";
+  isRepresentive?: boolean;
+  employerInfo?: { 전화번호: string; 이메일: string };
   onPress?: () => void;
   onLater?: () => void;
 }
 
-export const BottomButtonWithText = ({ text, state, onPress, onLater }: Props) => {
+export const BottomButtonWithText = ({
+  text,
+  buttonText,
+  state,
+  onPress,
+  onLater,
+  isRepresentive,
+  employerInfo,
+}: Props) => {
   return (
     <>
       <View style={styles.containerWithText}>
+        {isRepresentive && (
+          <View style={styles.employerInfoContainer}>
+            <Text style={styles.employerInfoTitle}>고용주 연락처</Text>
+            <Text style={styles.employerInfoText}>
+              {employerInfo?.전화번호 !== "" && employerInfo?.전화번호}
+            </Text>
+            <Text style={styles.employerInfoText}>
+              {employerInfo?.이메일 !== "" && employerInfo?.이메일}
+            </Text>
+          </View>
+        )}
         <Text style={styles.descriptionText}>
-          고용주에게 전송 후, <Text style={styles.keywordText}>서류</Text>{" "}
+          {text}에게 전송 후, <Text style={styles.keywordText}>서류</Text>{" "}
           페이지에서{"\n"}진행 상황을 확인할 수 있어요.
         </Text>
-        <BottomButton text={text} state={state} onPress={onPress} />
+        <BottomButton text={buttonText} state={state} onPress={onPress} />
         <Pressable onPress={onLater} style={styles.pressableTextContainer}>
           <Text style={styles.pressableText}>나중에 보낼래요.</Text>
         </Pressable>
@@ -59,6 +81,24 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     display: "flex",
     bottom: 30,
+  },
+  employerInfoContainer: {
+    display: "flex",
+    width: "100%",
+    flexDirection: "column",
+    bottom: 105,
+  },
+  employerInfoTitle: {
+    fontSize: 12,
+    lineHeight: 18,
+    fontWeight: "600",
+    fontFamily: "NotoSans-SemiBold",
+  },
+  employerInfoText: {
+    fontSize: 12,
+    lineHeight: 18,
+    fontWeight: "500",
+    fontFamily: "NotoSans-SemiBold",
   },
   container: {
     flex: 1,
@@ -123,12 +163,11 @@ const styles = StyleSheet.create({
     bottom: 20,
     width: 80,
     borderBottomWidth: 1,
-    borderBottomColor: 'black',
+    borderBottomColor: "black",
   },
   pressableText: {
     fontSize: 12,
     lineHeight: 18,
     fontFamily: "NotoSans-Regular",
-
   },
 });
