@@ -9,6 +9,7 @@ interface CustomModalPopupProps {
   title: string;
   message: string;
   onPress?: () => void;
+  buttonText?: string;
 }
 
 const InvalidModal: React.FC<CustomModalPopupProps> = ({
@@ -53,6 +54,7 @@ export const SkipModal: React.FC<CustomModalPopupProps> = ({
   title,
   message,
   onPress,
+  buttonText,
 }) => {
   const router = useRouter();
   return (
@@ -80,7 +82,7 @@ export const SkipModal: React.FC<CustomModalPopupProps> = ({
               style={skipModalStyles.skipButton}
               onPress={onPress && onPress}
             >
-              <Text style={skipModalStyles.buttonText}>Skip</Text>
+              <Text style={skipModalStyles.buttonText}>{buttonText}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={skipModalStyles.button} onPress={onClose}>
               <Text style={skipModalStyles.buttonText}>취소</Text>

@@ -7,11 +7,11 @@ import { useState } from "react";
 import { StyleSheet, useWindowDimensions } from "react-native";
 
 const ProgressPage = () => {
-  const { height } = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
   const [currentTab, setCurrentTab] = useState("진행 중");
   return (
     <>
-      <ThemedView style={[styles.background, { height }]}>
+      <ThemedView style={[styles.background, { width, height }]}>
         <PrevButton isLogo={true} />
         <TabSelector
           currentTab={currentTab}

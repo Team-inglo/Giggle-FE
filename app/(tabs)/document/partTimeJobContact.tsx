@@ -67,6 +67,7 @@ const PartTimeJobContactPage = () => {
             onClose={() => setIsModalOpen(false)}
             title="나중에 보내시나요?"
             message="서류 페이지에서 다시 확인할 수 있어요."
+            buttonText='예'
           />
         )}
       </ThemedView>

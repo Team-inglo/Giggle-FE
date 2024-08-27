@@ -4,7 +4,6 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useRef } from 'react';
 import { StyleSheet, View } from "react-native";
 import WebView, { WebViewMessageEvent } from 'react-native-webview';
-import { WebViewSource } from 'react-native-webview/lib/WebViewTypes';
 
 const DocumentWritePage = () => {
   const webViewRef = useRef(null);
