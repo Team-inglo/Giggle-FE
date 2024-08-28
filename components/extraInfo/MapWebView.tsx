@@ -2,21 +2,21 @@ import { useRef } from "react";
 import { StyleSheet, View } from "react-native";
 import { WebView, WebViewMessageEvent } from "react-native-webview";
 
-const MapWebView = () => {
-  const webViewRef = useRef(null);
+interface WebViewProps {
+  url: string;
+  onMessage?: (event: WebViewMessageEvent) => void;
+}
 
-  const onMessage = (event: WebViewMessageEvent) => {
-    const data = JSON.parse(event.nativeEvent.data);
-  };
+const MapWebView = ({url, onMessage}: WebViewProps) => {
+  const webViewRef = useRef(null);
 
   return (
     <View style={styles.container}>
       <WebView
         style={styles.container}
-        source={{ uri: "https://giggle-fe.vercel.app/map" }}
+        source={{ uri: url }}
         scalesPageToFit={false}
-        maximumZoomScale={0.8}
-        minimumZoomScale={0.8}
+        onMessage={onMessage}
       />
     </View>
   );

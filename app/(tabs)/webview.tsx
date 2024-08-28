@@ -1,17 +1,20 @@
 import MapWebView from "@/components/extraInfo/MapWebView";
-import { useRouter } from "expo-router";
-import { StyleSheet } from "react-native";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { StyleSheet, View } from "react-native";
 
-const SignUpPage = () => {
+const WebViewPage = () => {
   const router = useRouter();
+  const { url } = useLocalSearchParams<{ url: string }>();
   return (
     <>
-      <MapWebView />
+      <View style={styles.background}>
+        <MapWebView url={url} />
+      </View>
     </>
   );
 };
 
-export default SignUpPage;
+export default WebViewPage;
 
 const styles = StyleSheet.create({
   background: {

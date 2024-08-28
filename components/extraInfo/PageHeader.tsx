@@ -39,7 +39,7 @@ export default PageHeader;
 
 const styles = StyleSheet.create({
   titleContainer: {
-    flex: 2,
+    flex: 1,
     display: "flex",
     backgroundColor: "white",
     width: 257,
@@ -52,42 +52,36 @@ const styles = StyleSheet.create({
   title: {
     color: "black",
     fontSize: 48,
-    fontFamily: "Inter",
     fontWeight: "700",
     lineHeight: 57.6,
   },
   allPage: {
     color: "black",
     fontSize: 20,
-    fontFamily: "Inter",
     fontWeight: "400",
     lineHeight: 24,
   },
   currentPage: {
     color: "#AAAAAA",
     fontSize: 20,
-    fontFamily: "Inter",
     fontWeight: "400",
     lineHeight: 24,
   },
   keyword: {
     color: "#FFB65A",
     fontSize: 24,
-    fontFamily: "Inter",
     fontWeight: "600",
     lineHeight: 28.8,
   },
   subTitle: {
     color: "black",
     fontSize: 24,
-    fontFamily: "Inter",
     fontWeight: "600",
     lineHeight: 28.8,
   },
   description: {
     color: "rgba(60, 60, 67, 0.60)",
     fontSize: 14,
-    fontFamily: "Inter",
     fontWeight: "400",
     lineHeight: 19.6,
   },

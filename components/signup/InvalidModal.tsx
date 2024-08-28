@@ -132,7 +132,6 @@ const styles = StyleSheet.create({
   },
   modalTitle: {
     fontSize: 16,
-    fontFamily: "Inter",
     fontWeight: "600",
     lineHeight: 22.4,
     color: "#900B09",
@@ -144,7 +143,6 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     fontSize: 16,
-    fontFamily: "Inter",
     fontWeight: "400",
     lineHeight: 22.4,
     color: "#900B09",
@@ -201,7 +199,6 @@ const skipModalStyles = StyleSheet.create({
   },
   modalTitle: {
     fontSize: 16,
-    fontFamily: "Inter",
     fontWeight: "600",
     lineHeight: 22.4,
     color: "#1E1E1E",
@@ -213,7 +210,6 @@ const skipModalStyles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     fontSize: 16,
-    fontFamily: "Inter",
     fontWeight: "400",
     lineHeight: 22.4,
     color: "#1E1E1E",

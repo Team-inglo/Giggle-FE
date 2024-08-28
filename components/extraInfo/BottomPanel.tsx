@@ -146,7 +146,6 @@ const styles = StyleSheet.create({
   skipText: {
     color: "#FFB65A",
     fontSize: 14,
-    fontFamily: "Roboto",
     fontWeight: "500",
     lineHeight: 20,
     letterSpacing: 0.1,

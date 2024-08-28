@@ -109,7 +109,6 @@ const styles = StyleSheet.create({
   title: {
     color: "black",
     fontSize: 24,
-    fontFamily: "Inter",
     fontWeight: "700",
     lineHeight: 36,
   },

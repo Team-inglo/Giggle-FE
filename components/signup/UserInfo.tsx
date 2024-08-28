@@ -13,20 +13,29 @@ interface Props {
 const UserInfo = ({ userInfo }: Props) => {
   return (
     <View style={styles.container}>
-      {Object.entries(userInfo).map(([key, value]) => (
-        <InfoItem key={key} label={key} value={value} />
-      ))}
+      <View style={styles.inner}>
+        {Object.entries(userInfo).map(([key, value]) => (
+          <InfoItem key={key} label={key} value={value} />
+        ))}
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    margin: 'auto',
+    width: '100%',
+    display: 'flex',
     justifyContent: "center",
     backgroundColor: "white",
   },
+  inner: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    backgroundColor: "white",
+  }
 });
 
 export default UserInfo;

@@ -14,7 +14,12 @@ type ProgressTrackerProps = {
   isComplete?: boolean;
 };
 
-export const ProgressBar = ({ steps }: ProgressTrackerProps) => {
+export const ProgressBar = ({
+  steps,
+  date,
+  currentMessage,
+  isComplete,
+}: ProgressTrackerProps) => {
   return (
     <View>
       <View style={styles.progressBar}>
@@ -103,12 +108,12 @@ const styles = StyleSheet.create({
     borderColor: "#f2f2f2",
     borderWidth: 2,
     width: "100%",
+    marginBottom: 10,
   },
   title: {
     fontSize: 16,
     lineHeight: 22,
     fontWeight: "bold",
-    fontFamily: "Inter-SemiBold",
     marginBottom: 10,
     padding: 20,
   },
@@ -117,7 +122,6 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     lineHeight: 16,
     fontWeight: "500",
-    fontFamily: "Roboto-Medium",
     color: "#aaa",
     paddingHorizontal: 20,
   },
@@ -126,7 +130,6 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     lineHeight: 16,
     fontWeight: "500",
-    fontFamily: "Roboto-Medium",
     marginBottom: 20,
     paddingHorizontal: 20,
   },

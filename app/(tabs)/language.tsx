@@ -60,21 +60,18 @@ const styles = StyleSheet.create({
   title: {
     color: "black",
     fontSize: 24,
-    fontFamily: "Inter",
     fontWeight: "700",
     lineHeight: 36,
   },
   keyword: {
     color: "#FFB65A",
     fontSize: 24,
-    fontFamily: "Noto Sans",
     fontWeight: "700",
     lineHeight: 36,
   },
   subTitle: {
     color: "#151515",
     fontSize: 12,
-    fontFamily: "Noto Sans",
     fontWeight: "400",
     lineHeight: 18,
   },

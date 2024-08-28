@@ -1,15 +1,51 @@
+import { requestSignature } from "@/api/document/requestSignature";
 import PrevButton from "@/components/common/PrevButton";
 import { ThemedView } from "@/components/ThemedView";
 import BottomButton from "@/components/tutorial/BottomButton";
+import { RequestSignatureDto } from "@/interface/document/requestSinatureInterface";
 import { useRouter } from "expo-router";
+import { useState } from "react";
 import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
 
 const IntegratedFormPage = () => {
   const { height } = useWindowDimensions();
   const router = useRouter();
-  const handleButtonClick = () => {
-    router.push("/webview");
+
+  // >>> 서명요청용 변수 나중에 다른거랑 합쳐주세요
+  const [announcementId, setAnnouncementId] = useState<number>(3);
+  const [userId, setUserId] = useState<number>(1);
+
+  const handleButtonClick = async () => {
+    // RequestSignatureDto 객체 생성
+    const requestSignatureDto: RequestSignatureDto = [
+      {
+        signingMethod: {
+          type: "SECURE_LINK",
+          value: "teaminglo236@gmail.com",
+        },
+        role: "외국인유학생",
+        name: "외국인유학생",
+      },
+    ];
+
+    try {
+      // access_token 값을 실제로 얻는 방법이 필요합니다.
+      const access_token = ""; // 적절한 방식으로 access_token을 받아와야 함
+
+      // 근로계약서의 documentType 정의
+      await requestSignature({
+        documentType: "INTEGRATED_APPLICATION", // >>> 나중에 type으로 정의 부탁해요..
+        announcementId,
+        userId,
+        access_token,
+        requestSignatureDto,
+      });
+      // router.push("/"); // 요청 성공 시 이동할 경로
+    } catch (error) {
+      console.error("이메일 전송 중 오류 발생", error);
+    }
   };
+
   return (
     <>
       <ThemedView style={[styles.background, { height }]}>
@@ -38,7 +74,9 @@ const IntegratedFormPage = () => {
   );
 };
 
-export default IntegratedFormPage
+// Move export statement here
+export default IntegratedFormPage;
+
 const styles = StyleSheet.create({
   background: {
     backgroundColor: "#ffffff",
@@ -61,14 +99,12 @@ const styles = StyleSheet.create({
   keyword: {
     color: "#FFB65A",
     fontSize: 24,
-    fontFamily: "Inter",
     fontWeight: "600",
     lineHeight: 28.8,
   },
   subTitle: {
     color: "black",
     fontSize: 24,
-    fontFamily: "NotoSans-Bold",
     fontWeight: "600",
     lineHeight: 36,
     height: 80,
@@ -77,7 +113,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     letterSpacing: 0,
     lineHeight: 20,
-    fontFamily: "Roboto-Regular",
   },
   contentContainer: {
     display: "flex",
@@ -93,12 +128,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 22,
     fontWeight: "600",
-    fontFamily: "Inter-SemiBold",
     marginBottom: 8,
   },
   contentDescription: {
     fontSize: 16,
     lineHeight: 22,
-    fontFamily: "Inter-Regular",
   },
 });

@@ -3,28 +3,28 @@ import React, { Dispatch, SetStateAction } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 interface infoTabProps {
-  currentTab: string;
+  status: boolean;
   phoneNumber: string;
   email: string;
-  onPress: Dispatch<SetStateAction<string>>;
+  setStatus: Dispatch<SetStateAction<boolean>>;
   onType: Dispatch<SetStateAction<employInfo>>;
 }
 
 interface TabSelectorProps {
-  currentTab: string;
-  onPress: Dispatch<SetStateAction<string>>;
+  status: boolean;
+  setStatus: Dispatch<SetStateAction<boolean>>;
   tab1: string;
   tab2: string;
 }
 
-export const TabSelector = ({currentTab, onPress, tab1, tab2}: TabSelectorProps) => {
+export const TabSelector = ({status, setStatus, tab1, tab2}: TabSelectorProps) => {
   return (
     <>
         <View style={styles.tabContainer}>
           <Pressable
-            onPress={() => onPress(tab1)}
+            onPress={() => setStatus(true)}
             style={
-              currentTab === tab1
+              status === true
                 ? [styles.tab, styles.selected]
                 : styles.tab
             }
@@ -32,9 +32,9 @@ export const TabSelector = ({currentTab, onPress, tab1, tab2}: TabSelectorProps)
             <Text>{tab1}</Text>
           </Pressable>
           <Pressable
-            onPress={() => onPress(tab2)}
+            onPress={() => setStatus(false)}
             style={
-              currentTab === tab2
+              status === false
                 ? [styles.tab, styles.selected]
                 : styles.tab
             }
@@ -47,18 +47,18 @@ export const TabSelector = ({currentTab, onPress, tab1, tab2}: TabSelectorProps)
 }
 
 const InfoTab = ({
-  currentTab,
+  status,
   phoneNumber,
   email,
-  onPress,
+  setStatus,
   onType,
 }: infoTabProps) => {
   return (
     <>
       <View style={styles.background}>
-        <TabSelector currentTab={currentTab} onPress={onPress} tab1="전화번호" tab2="이메일"/>
+        <TabSelector status={status} setStatus={setStatus} tab1="전화번호" tab2="이메일"/>
         <View style={styles.inputContainer}>
-          {currentTab === "전화번호" ? (
+          {status === true ? (
             <TextInput
               value={phoneNumber}
               style={styles.input}

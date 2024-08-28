@@ -28,15 +28,17 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     width: 152,
     height: 42,
+    display: 'flex',
+    justifyContent: 'center',
   },
   labelContainer: {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 4,
+    
   },
   label: {
     fontSize: 16,
-    fontFamily: "Inter",
     fontWeight: "400",
     lineHeight: 22.4,
     color: "#1E1E1E",
@@ -47,7 +49,6 @@ const styles = StyleSheet.create({
   },
   value: {
     fontSize: 14,
-    fontFamily: "Inter",
     fontWeight: "400",
     lineHeight: 19.6,
     color: "#757575",
