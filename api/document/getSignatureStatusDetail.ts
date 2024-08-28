@@ -24,7 +24,7 @@ export const requestSignatureDetailsGet = async ({
     );
 
     if (response.data != undefined) {
-      console.log('성공했습니다.', response.data);
+      console.log('디테일 성공했습니다.', response.data);
       return response.data; // 데이터를 반환합니다.
     }
   } catch (error) {

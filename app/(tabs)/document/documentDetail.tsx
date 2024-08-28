@@ -32,6 +32,7 @@ const DocumentDetailPage = () => {
     remainingSteps: [],
     stepComment: "",
     announcementId: 0,
+    url: "",
   };
 
   const [logs, setLogs] = useState<DocumentDetail>(initialDocumentDetail); // 상세 상세 관리
@@ -46,7 +47,9 @@ const DocumentDetailPage = () => {
     const fetchLogs = async () => {
       try {
         const data = await requestSignatureDetailsGet({ access_token, userId, applyId });
-        if (data && data.logs) {
+        if (data) {
+          console.log("응답")
+          console.log(data)
           setLogs(data); // 응답 데이터에서 로그 배열을 세팅
         }
       } catch (err) {

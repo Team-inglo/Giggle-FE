@@ -17,4 +17,5 @@ export interface CompletedDocument {
     remainingSteps: RemainingStep[];
     stepComment: string;
     announcementId: number;
+    url: string;
   }
