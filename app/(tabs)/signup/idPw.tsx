@@ -1,5 +1,6 @@
 import PrevButton from "@/components/common/PrevButton";
 import Input from "@/components/login/Input";
+import InputId from "@/components/login/inputId";
 import InvalidModal from "@/components/signup/InvalidModal";
 import { ThemedView } from "@/components/ThemedView";
 import BottomButton from "@/components/tutorial/BottomButton";
@@ -31,25 +32,60 @@ const IdPwPage = () => {
   });
   const [modalVisible, setModalVisible] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isNotDuplicatedId, setIsNotDuplicatedId] = useState(false);
+  const [isCheckDuplicatedId, setIsCheckDuplicatedId] = useState(false);
 
   const passwordRegex =
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$/;
-  const inValidId = false;
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,20}$/;
+  const idRegx = /^[a-z0-9]{6,20}$/;
+  const checkIdDuplicate = async () => {
+    try {
+      const response = await fetch(`https://api.giggle-inglo.com/api/v1/auth/id-duplicate?serial_id=${signUpInfo.id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      setIsNotDuplicatedId(data.data);
+      setIsCheckDuplicatedId(true);
+    } catch (error) {
+      console.error("아이디 중복 확인 에러:", error);
+    }
+  };
+
   const inValidInputPassword =
     signUpInfo.password !== "" && !passwordRegex.test(signUpInfo.password);
   const inValidInputPasswordCheck =
     signUpInfo.passwordCheck !== "" &&
     signUpInfo.password !== signUpInfo.passwordCheck;
+  const inValidInputId =
+    signUpInfo.id !== "" && !idRegx.test(signUpInfo.id);
   const allClear =
-    !inValidId &&
+    !inValidInputId &&
+    isNotDuplicatedId &&
     !inValidInputPassword &&
     !inValidInputPasswordCheck &&
     signUpInfo.id !== "" &&
     signUpInfo.password !== "" &&
     signUpInfo.passwordCheck !== "";
   const handleButtonClick = () => {
-    allClear && router.push("/signup/terms");
+    allClear && router.push({
+      pathname:"/signup/terms",
+      params:{
+        id:signUpInfo.id,
+        password:signUpInfo.password
+      }
+    });
   };
+
+  let idValidCheckMessage;
+  if (signUpInfo.id == "") idValidCheckMessage = "";
+  else if (inValidInputId) idValidCheckMessage = "아이디는 영소문자나 숫자로 이루어진 6글자 이상 20자 미만이어야 합니다.";
+  else if (!isCheckDuplicatedId) idValidCheckMessage =  "아이디 중복검사는 필수입니다.";
+  else if (!isNotDuplicatedId) idValidCheckMessage = "아이디가 중복되었습니다.";
+  else idValidCheckMessage = "가입이 가능한 아이디입니다";
+
   return (
     <>
       <ThemedView style={[styles.background, { height }]}>
@@ -60,18 +96,22 @@ const IdPwPage = () => {
         <View style={styles.loginSection}>
           <View style={styles.idInputSection}>
             <View style={styles.idInputContainer}>
-              <Input
+              <InputId
                 info={signUpInfo.id}
-                onChangeText={(text) =>
+                onChangeText={(text) =>{
+                  setIsCheckDuplicatedId(false);
                   setSignUpInfo({ ...signUpInfo, id: text })
-                }
-                inValid={inValidId}
-                text="이미 존재하는 아이디입니다."
+                }}
+                inValid={inValidInputId}
+                isNotDuplicated={isNotDuplicatedId}
+                isChecked={isCheckDuplicatedId}
+                text={idValidCheckMessage}
                 placeholder="아이디 입력"
               />
             </View>
             <TouchableOpacity
               style={signUpInfo.id !== "" ? styles.activated : styles.disabled}
+              onPress={checkIdDuplicate}
             >
               <Text
                 style={

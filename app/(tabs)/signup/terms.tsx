@@ -2,16 +2,43 @@ import PrevButton from "@/components/common/PrevButton";
 import AgreeTerms from "@/components/signup/AgreeTerms";
 import { ThemedView } from "@/components/ThemedView";
 import BottomButton from "@/components/tutorial/BottomButton";
-import { useRouter } from "expo-router";
+import {useLocalSearchParams, useRouter} from "expo-router";
 import { useState } from "react";
+import axios from "axios";
 import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
 
 const TermsPage = () => {
+  const { id , password } = useLocalSearchParams();
   const { height } = useWindowDimensions();
   const router = useRouter();
   const [checkedEach, setCheckedEach] = useState([false, false, false]);
   const handleButtonClick = () => {
-    !checkedEach.includes(false) && router.push("/signup/done");
+    signUp();
+  };
+  const signUp = async () => {
+    try {
+      const response = await axios(`https://api.giggle-inglo.com/api/v1/auth/sign-up`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: {
+          "serial_id": id,
+          "password": password,
+          "role": "APPLICANT"
+        }
+      });
+      const access_token = await response.data.data.access_token;
+      if(access_token)
+        !checkedEach.includes(false) && router.push({
+          pathname:"/signup",
+          params: {
+            "access_token": access_token
+          }
+        });
+    } catch (error) {
+      console.error("회원가입 에러", error);
+    }
   };
   return (
     <>
