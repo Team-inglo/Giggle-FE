@@ -1,20 +1,22 @@
+import Menu from "@/components/common/Menu";
 import MapWebView from "@/components/extraInfo/MapWebView";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { StyleSheet, View } from "react-native";
 
-const WebViewPage = () => {
+const WebViewHomePage = () => {
   const router = useRouter();
   const { url } = useLocalSearchParams<{ url: string }>();
   return (
     <>
-      <View style={styles.background}>
-        <MapWebView url={url} />
+      <MapWebView url={url} />
+      <View style={styles.container}>
+        <Menu />
       </View>
     </>
   );
 };
 
-export default WebViewPage;
+export default WebViewHomePage;
 
 const styles = StyleSheet.create({
   background: {
@@ -26,8 +28,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
   },
   container: {
-    flex: 1,
     width: "100%",
-    height: 400,
+    display: 'flex',
+    alignItems: 'center',
   },
 });

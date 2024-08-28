@@ -10,6 +10,7 @@ type menuItem = {
   name: string;
   src: Href<string | object>;
   icon: ReactElement;
+  url: string;
 };
 
 const Menu = () => {
@@ -27,6 +28,7 @@ const Menu = () => {
       {
         name: "서류",
         src: "/document" as Href<string>,
+        url: "/document",
         icon: (
           <DocumentIcon
             stroke={
@@ -41,6 +43,7 @@ const Menu = () => {
       {
         name: "공고",
         src: "/notice" as Href<string>,
+        url: "https://giggle-fe.vercel.app/notice",
         icon: (
           <NoticeIcon
             stroke={
@@ -54,7 +57,8 @@ const Menu = () => {
       },
       {
         name: "홈",
-        src: "/" as Href<string>,
+        src: "/home" as Href<string>,
+        url: "https://giggle-fe.vercel.app/",
         icon: (
           <HomeIcon
             stroke={
@@ -67,6 +71,7 @@ const Menu = () => {
       {
         name: "캘린더",
         src: "/calendar" as Href<string>,
+        url: "https://giggle-fe.vercel.app/calendar",
         icon: (
           <CalendarIcon
             stroke={
@@ -81,6 +86,7 @@ const Menu = () => {
       {
         name: "챗봇",
         src: "/chatbot" as Href<string>,
+        url: "https://giggle-fe.vercel.app/chatbot",
         icon: (
           <ChatIcon
             stroke={
@@ -102,7 +108,7 @@ const Menu = () => {
         <Pressable
           key={idx}
           style={[styles.menuBox]}
-          onPress={() => router.push(item.src)}
+          onPress={() => router.push({pathname: item.src, params: {url: item.url}})}
         >
           {item.icon}
           <Text
@@ -122,14 +128,17 @@ export default Menu;
 
 const styles = StyleSheet.create({
   container: {
+    width: "100%",
+    display: 'flex',
     position: "absolute",
-    bottom: 10,
+    bottom: 0,
+    height: 66,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    width: "100%",
     padding: 8,
     marginLeft: 25,
+    paddingHorizontal: 25,
     borderTopWidth: 1,
     borderTopColor: "#F2F2F2",
     backgroundColor: "#FFFFFF",
