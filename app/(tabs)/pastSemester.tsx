@@ -1,6 +1,7 @@
 import BottomPanel from "@/components/extraInfo/BottomPanel";
 import MapWebView from "@/components/extraInfo/MapWebView";
 import PageHeader from "@/components/extraInfo/PageHeader";
+import Input from "@/components/login/Input";
 import { SkipModal } from "@/components/signup/InvalidModal";
 import { ThemedView } from "@/components/ThemedView";
 import { SignupContext } from "@/store/signupContext";
@@ -10,17 +11,14 @@ import { StyleSheet, useWindowDimensions } from "react-native";
 
 const SignUpPage = () => {
   const { height } = useWindowDimensions();
-  const { university, degree } = useContext(SignupContext);
-  const [whichModalIsVisible, setWhichModalIsVisible] = useState("");
   const [imageUri, setImageUri] = useState<string | null>(null);
   const [address, setAddress] = useState({
     main: "",
     sub: "",
   });
+  const [pastSemester, setPastSemester] = useState("");
   const router = useRouter();
-  const handleButtonClick = () => {
-    setWhichModalIsVisible("confirm");
-  };
+  const handleButtonClick = () => {};
   const handleConfirm = () => {
     router.push("/extraInfo/done");
   };
@@ -28,35 +26,25 @@ const SignUpPage = () => {
     <>
       <ThemedView style={[styles.background, { height }]}>
         <PageHeader
-          currentPage={5}
-          allPage={5}
-          keyword="거주지"
+          currentPage={6}
+          allPage={6}
+          keyword="기타정보"
           title={"를\n등록해주세요."}
-          description="맞춤형 아르바이트 광고 제공을 위해 필요해요."
+          description="정확한 정보를 작성해주세요."
         />
 
-        <MapWebView url={"https://giggle-fe.vercel.app/map"}/>
+        <Input
+          info={pastSemester}
+          onChangeText={(text) => setPastSemester(text)}
+          inValid={false}
+          text=""
+          placeholder="이수학기(현재까지 이수한 학기)"
+        />
         <BottomPanel
           state={imageUri !== null ? "activated" : "disabled"}
           text="다음"
           onPress={handleButtonClick}
-          onSkip={() => setWhichModalIsVisible("skip")}
-        />
-        <SkipModal
-          visible={whichModalIsVisible === "skip"}
-          onClose={() => setWhichModalIsVisible("")}
-          title="Skip 하시겠습니까?"
-          message="맞춤형 서비스를 받지 못할 수도 있습니다."
-          onPress={() => router.push("/")}
-          buttonText='Skip'
-        />
-        <SkipModal
-          visible={whichModalIsVisible === "confirm"}
-          onClose={() => setWhichModalIsVisible("")}
-          title="등록된 주소가 확실한가요?"
-          message="거주지를 기반으로 아르바이트를 추천해드려요."
-          onPress={handleConfirm}
-          buttonText='예'
+          onSkip={() => {}}
         />
       </ThemedView>
     </>

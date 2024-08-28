@@ -101,13 +101,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 18,
     fontWeight: "600",
-    fontFamily: "NotoSans-SemiBold",
   },
   employerInfoText: {
     fontSize: 12,
     lineHeight: 18,
     fontWeight: "500",
-    fontFamily: "NotoSans-SemiBold",
   },
   container: {
     flex: 1,
@@ -161,7 +159,6 @@ const styles = StyleSheet.create({
     textAlign: "left",
     display: "flex",
     alignItems: "center",
-    fontFamily: "NotoSans-Regular",
     bottom: 90,
   },
   buttonContainer: {
@@ -172,7 +169,6 @@ const styles = StyleSheet.create({
   },
   keywordText: {
     fontWeight: "700",
-    fontFamily: "NotoSans-Bold",
   },
   pressableTextContainer: {
     bottom: 20,
@@ -182,6 +178,5 @@ const styles = StyleSheet.create({
   pressableText: {
     fontSize: 12,
     lineHeight: 18,
-    fontFamily: "NotoSans-Regular",
   },
 });

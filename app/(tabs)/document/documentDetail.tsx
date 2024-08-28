@@ -106,7 +106,6 @@ const styles = StyleSheet.create({
   subTitle: {
     color: "black",
     fontSize: 24,
-    fontFamily: "NotoSans-Bold",
     fontWeight: "600",
     lineHeight: 36,
     height: 37,
@@ -125,13 +124,11 @@ const styles = StyleSheet.create({
     fontSize: 10,
     letterSpacing: 0,
     lineHeight: 16,
-    fontFamily: "Roboto-Regular",
     color: "#fff",
   },
   dateText: {
     fontSize: 16,
     lineHeight: 22,
-    fontFamily: "Inter-Regular",
     marginBottom: 50,
   },
   endedStages: {
@@ -163,7 +160,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 22,
     fontWeight: "600",
-    fontFamily: "Inter-SemiBold",
     color: "#aaa",
   },
   stageLeft: {
@@ -173,7 +169,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 22,
     fontWeight: "600",
-    fontFamily: "Inter-SemiBold",
   },
   stageLeftText: {
     width: "100%",

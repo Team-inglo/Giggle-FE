@@ -84,14 +84,12 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    fontFamily: "Inter",
     fontWeight: "400",
     lineHeight: 22.4,
     color: "#1E1E1E",
   },
   value: {
     fontSize: 14,
-    fontFamily: "Inter",
     fontWeight: "400",
     lineHeight: 19.6,
     color: "#757575",

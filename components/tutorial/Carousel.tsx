@@ -97,7 +97,6 @@ const styles = StyleSheet.create({
   title: {
     color: "black",
     fontSize: 48,
-    fontFamily: "Inter",
     fontWeight: "700",
     lineHeight: 57.6,
   },
@@ -136,14 +135,12 @@ const styles = StyleSheet.create({
   keyword: {
     color: "#FFB65A",
     fontSize: 24,
-    fontFamily: "Inter",
     fontWeight: "600",
     lineHeight: 28.8,
   },
   subTitle: {
     color: "black",
     fontSize: 24,
-    fontFamily: "Inter",
     fontWeight: "600",
     lineHeight: 28.8,
     marginBottom: 12,
@@ -151,7 +148,6 @@ const styles = StyleSheet.create({
   description: {
     color: "black",
     fontSize: 16,
-    fontFamily: "Inter",
     fontWeight: "400",
     lineHeight: 28.8,
   },

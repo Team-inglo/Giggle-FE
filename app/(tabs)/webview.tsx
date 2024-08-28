@@ -1,12 +1,13 @@
 import MapWebView from "@/components/extraInfo/MapWebView";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { StyleSheet } from "react-native";
 
 const SignUpPage = () => {
   const router = useRouter();
+  const { url } = useLocalSearchParams<{ url: string }>();
   return (
     <>
-      <MapWebView />
+      <MapWebView url={url}/>
     </>
   );
 };

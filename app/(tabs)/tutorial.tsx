@@ -3,7 +3,8 @@ import BottomButton from "@/components/tutorial/BottomButton";
 import Carousel from "@/components/tutorial/Carousel";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { StyleSheet, useWindowDimensions } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
+import * as Notifications from "expo-notifications";
 
 export interface CarouselItem {
   id: number;
@@ -16,7 +17,11 @@ const tutorial = () => {
   const { height } = useWindowDimensions();
   const [step, setStep] = useState<number>(0);
   const router = useRouter();
-
+  const getToken = async () => {
+    const token = (await Notifications.getDevicePushTokenAsync()).data;
+    console.log(token);
+    console.log("hi");
+  };
   const carouselData: CarouselItem[] = [
     { id: 1, title: "유학생을\n위한\n아르바이트\n도움 서비스" },
     {
@@ -44,11 +49,13 @@ const tutorial = () => {
     <>
       <ThemedView style={[styles.background, { height }]}>
         <Carousel data={carouselData} step={step} onSlide={setStep} />
-        <BottomButton
-          state={step === 3 ? "activated" : "disabled"}
-          text="시작하기"
-          onPress={() => router.push("/language")}
-        />
+        <View style={styles.buttonContainer}>
+          <BottomButton
+            state={step === 3 ? "activated" : "disabled"}
+            text="시작하기"
+            onPress={() => router.push("/language")}
+          />
+        </View>
       </ThemedView>
     </>
   );
@@ -77,8 +84,12 @@ const styles = StyleSheet.create({
   title: {
     color: "black",
     fontSize: 48,
-    fontFamily: "Inter",
     fontWeight: "700",
     lineHeight: 57.6,
   },
+  buttonContainer: {
+    width: '100%',
+    flex: 1,
+    paddingHorizontal: 25,
+  }
 });
