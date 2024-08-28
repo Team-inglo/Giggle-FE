@@ -98,21 +98,18 @@ const styles = StyleSheet.create({
   mainText: {
     color: "#AAAAAA",
     fontSize: 16,
-    fontFamily: "Inter",
     fontWeight: "400",
     lineHeight: 22.4,
   },
   mainTextChecked: {
     color: "white",
     fontSize: 16,
-    fontFamily: "Inter",
     fontWeight: "400",
     lineHeight: 22.4,
   },
   titleText: {
     color: "black",
     fontSize: 20,
-    fontFamily: "Noto Sans",
     fontWeight: "700",
     lineHeight: 30,
   },

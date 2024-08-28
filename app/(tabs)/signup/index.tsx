@@ -172,23 +172,35 @@ const styles = StyleSheet.create({
   title: {
     color: "black",
     fontSize: 48,
-    fontFamily: "Inter",
     fontWeight: "700",
     lineHeight: 57.6,
   },
   keyword: {
     color: "#FFB65A",
     fontSize: 24,
-    fontFamily: "Inter",
     fontWeight: "600",
     lineHeight: 28.8,
   },
   subTitle: {
     color: "black",
     fontSize: 24,
-    fontFamily: "Inter",
     fontWeight: "600",
     lineHeight: 28.8,
     marginBottom: 12,
+  },
+    container: {
+    padding: 16,
+  },
+  bulletItem: {
+    flexDirection: 'row',
+    marginBottom: 8,
+  },
+  bullet: {
+    fontSize: 16,
+    marginRight: 8,
+  },
+  itemText: {
+    fontSize: 16,
+    flex: 1,
   },
 });

@@ -8,7 +8,7 @@ const ToSignUpPage = () => {
       <Text style={styles.text}>
         <Text style={styles.keyword}>Giggle</Text>이 처음이신가요?
       </Text>
-      <Pressable style={styles.toSignUpContainer} onPress={() => router.push('/signup')}>
+      <Pressable style={styles.toSignUpContainer} onPress={() => router.push('/signup/position')}>
         <Text style={styles.toSignUpButton}>가입하기</Text>
       </Pressable>
     </View>
@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
   text: {
     color: "black",
     fontSize: 12,
-    fontFamily: "Roboto",
     fontWeight: "500",
     lineHeight: 16,
     letterSpacing: 0.5,
@@ -38,7 +37,6 @@ const styles = StyleSheet.create({
   keyword: {
     color: "#FFB65A",
     fontSize: 12,
-    fontFamily: "Roboto",
     fontWeight: "500",
     lineHeight: 16,
     letterSpacing: 0.5,
@@ -50,7 +48,6 @@ const styles = StyleSheet.create({
   toSignUpButton: {
     color: "#AAAAAA",
     fontSize: 12,
-    fontFamily: "Roboto",
     fontWeight: "500",
     lineHeight: 16,
     letterSpacing: 0.5,
