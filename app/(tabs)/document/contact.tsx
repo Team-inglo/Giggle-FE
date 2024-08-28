@@ -66,7 +66,7 @@ const ContactPage = () => {
       console.error("이메일 전송 중 오류 발생", error);
     }
   };
-  
+
   const isContactWritten =
     employerInfo.전화번호 !== "" || employerInfo.이메일 !== "";
   return (

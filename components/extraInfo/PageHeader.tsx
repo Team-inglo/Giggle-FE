@@ -39,7 +39,7 @@ export default PageHeader;
 
 const styles = StyleSheet.create({
   titleContainer: {
-    flex: 2,
+    flex: 1,
     display: "flex",
     backgroundColor: "white",
     width: 257,

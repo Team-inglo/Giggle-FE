@@ -9,6 +9,7 @@ import {useLocalSearchParams, useRouter} from "expo-router";
 import {useEffect, useState} from "react";
 import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import axios from "axios";
+import PageHeader from '@/components/extraInfo/PageHeader';
 
 const AlienRegistrationCardPage = () => {
   const { access_token } = useLocalSearchParams();
@@ -105,13 +106,12 @@ const AlienRegistrationCardPage = () => {
   return (
     <>
       <ThemedView style={[styles.background, { height }]}>
-        <PrevButton isLogo={false} />
-        <View style={styles.titleContainer}>
-          <Text style={styles.subTitle}>
-            <Text style={styles.keyword}>외국인등록증</Text>을{"\n"}
-            입력해주세요.
-          </Text>
-        </View>
+        <PageHeader
+          currentPage={2}
+          allPage={8}
+          keyword="외국인등록증"
+          title={"을\n입력해주세요."}
+        />
         <UserInfo userInfo={userInfo} />
         <UploadPassPort
           title="외국인등록증을 올려주세요."

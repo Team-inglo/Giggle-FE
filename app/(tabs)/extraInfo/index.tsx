@@ -23,8 +23,8 @@ const SignUpPage = () => {
     <>
       <ThemedView style={[styles.background, { height }]}>
         <PageHeader
-          currentPage={1}
-          allPage={5}
+          currentPage={3}
+          allPage={8}
           keyword="TOPIK 증명서"
           title={"를\n등록해주세요."}
           description="맞춤형 아르바이트 광고 제공을 위해 필요해요."

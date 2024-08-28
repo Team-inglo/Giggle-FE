@@ -24,11 +24,14 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     width: 152,
     height: 42,
+    display: 'flex',
+    justifyContent: 'center',
   },
   labelContainer: {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 4,
+    
   },
   label: {
     fontSize: 16,
