@@ -7,8 +7,9 @@ import BottomButton from "@/components/tutorial/BottomButton";
 import { UserInfoState } from "@/constants/Users";
 import {useLocalSearchParams, useRouter} from "expo-router";
 import {useEffect, useState} from "react";
-import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
+import { StyleSheet, useWindowDimensions } from "react-native";
 import axios from "axios";
+import PageHeader from '@/components/extraInfo/PageHeader';
 
 const SignUpPage = () => {
   const { access_token } = useLocalSearchParams();
@@ -117,12 +118,12 @@ const SignUpPage = () => {
   return (
     <>
       <ThemedView style={[styles.background, { height }]}>
-        <PrevButton isLogo={false} />
-        <View style={styles.titleContainer}>
-          <Text style={styles.subTitle}>
-            <Text style={styles.keyword}>여권</Text>을{"\n"}선택해주세요
-          </Text>
-        </View>
+      <PageHeader
+          currentPage={1}
+          allPage={8}
+          keyword="여권"
+          title={"을\n선택해주세요"}
+        />
         <UserInfo userInfo={userInfo} />
         <UploadPassPort
           title="여권을 선택해주세요."
