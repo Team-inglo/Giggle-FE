@@ -4,7 +4,8 @@ import Input from "@/components/login/Input";
 import { SkipModal } from "@/components/signup/InvalidModal";
 import { ThemedView } from "@/components/ThemedView";
 import { SignupContext } from "@/store/signupContext";
-import { useRouter } from "expo-router";
+import axios from "axios";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useContext, useState } from "react";
 import { StyleSheet, useWindowDimensions } from "react-native";
 
@@ -17,9 +18,43 @@ const SignUpPage = () => {
   });
   const [pastSemester, setPastSemester] = useState("");
   const router = useRouter();
-  const handleButtonClick = () => {};
-  const handleConfirm = () => {
-    router.push("/extraInfo/done");
+  const { access_token } = useLocalSearchParams(); // 이전 페이지에서 토큰 넘겨줘야 함, 아니면 별도 입력
+  const handleButtonClick = () => {
+    updateRegistration();
+  };
+
+  const updateRegistration = async () => {
+    try {
+      const response = await axios(
+        `https://api.giggle-inglo.com/api/v1/applicants`,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: "Bearer " + { access_token },
+            "Content-Type": "application/json",
+          },
+          data: { // useLocalSearchParams() 통해 이전 추가 정보 입력 페이지들에서 받아온 정보들 입력
+            address_name: "",
+            address_x: "",
+            addreess_y: "",
+            gpa: "",
+            startDay: "",
+            endDay: "",
+          },
+        }
+      );
+      const success = await response.data.data; // 응답 형식 확인 필요
+      if (success) {
+        router.push({
+          pathname: "/extraInfo/done",
+          params: {
+            access_token: access_token,
+          },
+        });
+      }
+    } catch (error) {
+      console.error("상세 정보 등록 에러", error);
+    }
   };
   return (
     <>
@@ -28,7 +63,7 @@ const SignUpPage = () => {
           currentPage={6}
           allPage={6}
           keyword="기타정보"
-          title={"를\n등록해주세요."}
+          title={"를\n입력해주세요."}
           description="정확한 정보를 작성해주세요."
         />
 
@@ -41,7 +76,7 @@ const SignUpPage = () => {
         />
         <BottomPanel
           state={imageUri !== null ? "activated" : "disabled"}
-          text="다음"
+          text="완료"
           onPress={handleButtonClick}
           onSkip={() => {}}
         />
