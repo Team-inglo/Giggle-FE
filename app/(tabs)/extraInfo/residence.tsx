@@ -35,7 +35,7 @@ const SignUpPage = () => {
           description="맞춤형 아르바이트 광고 제공을 위해 필요해요."
         />
 
-        <MapWebView />
+        <MapWebView url={"https://giggle-fe.vercel.app/map"}/>
         <BottomPanel
           state={imageUri !== null ? "activated" : "disabled"}
           text="다음"
