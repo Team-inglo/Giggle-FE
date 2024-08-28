@@ -16,7 +16,8 @@ const SignUpPage = () => {
   const [imageUri, setImageUri] = useState<string | null>(null);
   const router = useRouter();
   const handleButtonClick = () => {
-    imageUri !== null && router.push("/extraInfo/societyUniteProgram");
+    // imageUri !== null && router.push("/extraInfo/societyUniteProgram");
+    router.push("/document");
   };
   return (
     <>
@@ -36,7 +37,8 @@ const SignUpPage = () => {
           setImageUri={setImageUri}
         />
         <BottomPanel
-          state={imageUri !== null ? "activated" : "disabled"}
+          // state={imageUri !== null ? "activated" : "disabled"}
+          state="activated"
           text="다음"
           onPress={handleButtonClick}
           onSkip={() => setModalVisible(true)}
