@@ -1,8 +1,10 @@
+import { requestSignature } from "@/api/document/requestSignature";
 import PrevButton from "@/components/common/PrevButton";
 import InfoTab from "@/components/contact/InfoTab";
 import { SkipModal } from "@/components/signup/InvalidModal";
 import { ThemedView } from "@/components/ThemedView";
 import { BottomButtonWithText } from "@/components/tutorial/BottomButton";
+import { RequestSignatureDto } from "@/interface/document/requestSinatureInterface";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
@@ -12,18 +14,75 @@ const PartTimeJobContactPage = () => {
   const router = useRouter();
   const [employerInfo, setEmployerInfo] = useState({
     전화번호: "",
-    이메일: "",
+    이메일: "bian87@dgu.ac.kr",
   });
   const [representiveInfo, setRepresentiveInfo] = useState({
     전화번호: "",
-    이메일: "",
+    이메일: "bian87@dgu.ac.kr", // <<< - 이 데이터 업데이트 안 되어서 빈 값으로 들어오는 이슈
   });
   const [currentTab, setCurrentTab] = useState<string>("전화번호");
   const [isModalopen, setIsModalOpen] = useState<boolean>(false);
   const [isRepresentive, setIsRepresentive] = useState<boolean>(false);
-  const handleButtonClick = () => {
-    isRepresentive ? router.push("/") : setIsRepresentive(true);
+
+
+  // >>> 서명요청용 변수 나중에 다른거랑 합쳐주세요
+  const [announcementId, setAnnouncementId] = useState<number>(3);
+  const [userId, setUserId] = useState<number>(1);
+
+  const handleButtonClick = async () => {
+    if(!isRepresentive) setIsRepresentive(true);
     setCurrentTab("전화번호");
+
+    // 유학생담당자까지 이메일을 입력한 경우
+    if(isRepresentive) {
+      console.log("시간제 취업허가서 서명 api를 호출합니다.", employerInfo.이메일, representiveInfo.이메일);
+
+    // RequestSignatureDto 객체 생성
+    const requestSignatureDto: RequestSignatureDto = [
+      {
+        signingMethod: {
+          type: "SECURE_LINK",
+          value: "teaminglo236@gmail.com",
+        },
+        role: "외국인유학생",
+        name: "외국인유학생",
+      },
+      {
+        signingMethod: {
+          type: "EMAIL",
+          value: employerInfo.이메일,
+        },
+        role: "고용주",
+        name: "고용주",
+      },
+      {
+        signingMethod: {
+          type: "EMAIL",
+          value: representiveInfo.이메일,
+        },
+        role: "교내유학생담당자",
+        name: "교내유학생담당자",
+      },
+    ];
+
+    try {
+      // access_token 값을 실제로 얻는 방법이 필요합니다.
+      const access_token = ""; // 적절한 방식으로 access_token을 받아와야 함
+
+      // 근로계약서의 documentType 정의
+      await requestSignature({
+        documentType: "TIME_WORK_PERMIT", // >>> 나중에 type으로 정의 부탁해요..
+        announcementId,
+        userId,
+        access_token,
+        requestSignatureDto,
+      });
+      // router.push("/"); // 요청 성공 시 이동할 경로
+    } catch (error) {
+      console.error("이메일 전송 중 오류 발생", error);
+    }
+    }
+  
   };
   const isContactWritten = () => {
     if (isRepresentive)
