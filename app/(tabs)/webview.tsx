@@ -2,17 +2,17 @@ import MapWebView from "@/components/extraInfo/MapWebView";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { StyleSheet } from "react-native";
 
-const SignUpPage = () => {
+const WebViewPage = () => {
   const router = useRouter();
   const { url } = useLocalSearchParams<{ url: string }>();
   return (
     <>
-      <MapWebView url={url}/>
+      <MapWebView url={"http://localhost:5173/map"}/>
     </>
   );
 };
 
-export default SignUpPage;
+export default WebViewPage;
 
 const styles = StyleSheet.create({
   background: {

@@ -4,14 +4,11 @@ import { WebView, WebViewMessageEvent } from "react-native-webview";
 
 interface WebViewProps {
   url: string;
+  onMessage?: (event: WebViewMessageEvent) => void;
 }
 
-const MapWebView = ({url}: WebViewProps) => {
+const MapWebView = ({url, onMessage}: WebViewProps) => {
   const webViewRef = useRef(null);
-
-  const onMessage = (event: WebViewMessageEvent) => {
-    const data = JSON.parse(event.nativeEvent.data);
-  };
 
   return (
     <View style={styles.container}>
@@ -19,8 +16,7 @@ const MapWebView = ({url}: WebViewProps) => {
         style={styles.container}
         source={{ uri: url }}
         scalesPageToFit={false}
-        maximumZoomScale={0.8}
-        minimumZoomScale={0.8}
+        onMessage={onMessage}
       />
     </View>
   );
