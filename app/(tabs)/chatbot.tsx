@@ -1,20 +1,18 @@
 import MapWebView from "@/components/extraInfo/MapWebView";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 
-const WebViewPage = () => {
+const WebViewChatbotPage = () => {
   const router = useRouter();
   const { url } = useLocalSearchParams<{ url: string }>();
   return (
     <>
-      <View style={styles.background}>
-        <MapWebView url={url} />
-      </View>
+      <MapWebView url={url}/>
     </>
   );
 };
 
-export default WebViewPage;
+export default WebViewChatbotPage;
 
 const styles = StyleSheet.create({
   background: {

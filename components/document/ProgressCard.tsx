@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
     borderColor: "#f2f2f2",
     borderWidth: 2,
     width: "100%",
+    marginBottom: 10,
   },
   title: {
     fontSize: 16,
