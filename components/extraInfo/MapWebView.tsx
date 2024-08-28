@@ -13,7 +13,7 @@ const MapWebView = () => {
     <View style={styles.container}>
       <WebView
         style={styles.container}
-        source={{ uri: "https://giggle-fe.vercel.app/employer-registration" }}
+        source={{ uri: "https://giggle-fe.vercel.app/notice" }}
         scalesPageToFit={false}
         maximumZoomScale={0.8}
         minimumZoomScale={0.8}

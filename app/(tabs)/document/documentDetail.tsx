@@ -11,8 +11,10 @@ import {
   View,
 } from "react-native";
 import NextIcon from "@/assets/icons/next_Icon.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SkipModal } from "@/components/signup/InvalidModal";
+import { requestSignatureDetailsGet } from "@/api/document/getSignatureStatusDetail";
+import { DocumentDetail } from "@/interface/document/getSignatureDetailsStatus";
 
 const DocumentDetailPage = () => {
   const { height } = useWindowDimensions();
@@ -21,6 +23,55 @@ const DocumentDetailPage = () => {
   const { steps, date, currentMessage, isComplete } = JSON.parse(
     data as string
   );
+
+  const initialDocumentDetail: DocumentDetail = {
+    name: "",
+    startDate: "",
+    step: 0,
+    completedDocuments: [],
+    remainingSteps: [],
+    stepComment: "",
+    announcementId: 0,
+  };
+
+  const [logs, setLogs] = useState<DocumentDetail>(initialDocumentDetail); // 상세 상세 관리
+
+  const access_token = 'eyJKV1QiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1dWlkIjoxLCJyb2xlIjoiQVBQTElDQU5UIiwiaWF0IjoxNzI0ODIyNDcyLCJleHAiOjE3MjU0MjcyNzJ9.yirYU820QAraRvwr3aJjtGYqZrCvQfoqjgEsGcyjyORbmrdqhy2FZiS1nU0S3BIJRtexHzEh7XZ0e2JoOffp2A'; // 실제 액세스 토큰으로 대체
+  const userId = 1; // 실제 userId로 대체
+  const applyId = 7;
+
+  // 상태 정보 상세 조회 get method 연결은 되는데 왜..
+  useEffect(() => {
+
+    const fetchLogs = async () => {
+      try {
+        const data = await requestSignatureDetailsGet({ access_token, userId, applyId });
+        if (data && data.logs) {
+          setLogs(data); // 응답 데이터에서 로그 배열을 세팅
+        }
+      } catch (err) {
+        console.log("error : ", err);
+      } 
+    };
+  
+    fetchLogs(); // 데이터 요청을 수행
+  }, []);
+
+  // 단계에 따라 상태 업데이트
+  const getSteps = (currentStep: number): Step[] => {
+    const stepLabels = ["제출", "표준\n근로계약서", "시간제\n취업허가서", "전자민원\n신청", "결과"];
+    
+    return stepLabels.map((label, index) => {
+      if (index < currentStep) {
+        return { label, status: "completed" };
+      } else if (index === currentStep) {
+        return { label, status: "current" };
+      } else {
+        return { label, status: "upcoming" };
+      }
+    });
+  };
+
   return (
     <>
       <ThemedView style={[styles.background, { height }]}>
@@ -30,37 +81,28 @@ const DocumentDetailPage = () => {
           setOpenModal={() => setIsModalOpen(true)}
         />
         <View style={styles.titleContainer}>
-          <Text style={styles.subTitle}>파리바게트 파트타이머 모집</Text>
+          <Text style={styles.subTitle}>{logs.name}</Text>
           <View style={styles.progressBadge}>
-            <Text style={styles.progressBadgeText}>진행중</Text>
+            <Text style={styles.progressBadgeText}>{logs.step >= 6 ? "완료" : "진행중"}</Text>
           </View>
         </View>
         <View>
           <Text style={styles.dateTitle}>신청일</Text>
-          <Text style={styles.dateText}>{date}</Text>
+          <Text style={styles.dateText}>{logs.startDate}</Text>
         </View>
-        <ProgressBar steps={steps} />
-        <View style={styles.endedStages}>
-          {steps.map(
-            (step: Step, idx: number) =>
-              step.status === "completed" && (
-                <Pressable key={idx} style={styles.endedStageContainer}>
-                  <Text style={styles.endedStageContainerText}>
-                    {step.label.replace(/\n/g, " ")}
-                  </Text>
-                  <NextIcon />
-                </Pressable>
-              )
-          )}
-        </View>
-
+        <ProgressBar 
+        steps={getSteps(logs.step)}
+        date={logs.startDate} // log에 있는 startDate 사용
+        currentMessage={logs.stepComment} // log에 있는 stepComment 사용
+        isComplete={logs.step === 1} // 단계에 따라 완료 여부 결정
+        />
         <Text style={styles.stageLeftTitle}>남은 단계</Text>
         <View style={styles.stageLeft}>
-          {steps.map((step: Step, idx: number) => (
-            <Text key={idx} style={styles.stageLeftText}>
-              {idx + 1}. {step.label.replace(/\n/g, " ")}
-            </Text>
-          ))}
+        {logs.remainingSteps.map((step, index) => (
+          <Text key={step.id} style={styles.endedStageContainerText}>
+            {index + 1}. {step.content}
+          </Text>
+        ))}
         </View>
         <DocumentBottomPanel
           state={"disabled"}

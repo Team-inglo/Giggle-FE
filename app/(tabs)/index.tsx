@@ -1,5 +1,5 @@
 import { Redirect } from "expo-router";
 
 export default function HomeScreen() {
-  return <Redirect href="/document/IntegratedForm" />;
+  return <Redirect href="/document" />;
 }

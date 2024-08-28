@@ -51,7 +51,7 @@ const ContactPage = () => {
 
     try {
       // access_token 값을 실제로 얻는 방법이 필요합니다.
-      const access_token = ""; // 적절한 방식으로 access_token을 받아와야 함
+      const access_token = "eyJKV1QiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1dWlkIjoxLCJyb2xlIjoiQVBQTElDQU5UIiwiaWF0IjoxNzI0ODE2NTc3LCJleHAiOjE3MjU0MjEzNzd9.2PtdqDmWezB_pKJ7pdl_82s5j7sEtkX9BlIPyF4lqBRcT3n7gS0SBfWbxB26P_GAOADY2UkFUmkauTNIaxx2Lw"; // 적절한 방식으로 access_token을 받아와야 함
 
       // 근로계약서의 documentType 정의
       await requestSignature({
@@ -66,7 +66,7 @@ const ContactPage = () => {
       console.error("이메일 전송 중 오류 발생", error);
     }
   };
-
+  
   const isContactWritten =
     employerInfo.전화번호 !== "" || employerInfo.이메일 !== "";
   return (

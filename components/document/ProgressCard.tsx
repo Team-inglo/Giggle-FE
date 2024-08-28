@@ -14,7 +14,12 @@ type ProgressTrackerProps = {
   isComplete?: boolean;
 };
 
-export const ProgressBar = ({ steps }: ProgressTrackerProps) => {
+export const ProgressBar = ({
+  steps,
+  date,
+  currentMessage,
+  isComplete,
+}: ProgressTrackerProps) => {
   return (
     <View>
       <View style={styles.progressBar}>
