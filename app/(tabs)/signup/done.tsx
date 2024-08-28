@@ -64,7 +64,6 @@ const styles = StyleSheet.create({
   titleText: {
     color: "black",
     fontSize: 20,
-    fontFamily: "Noto Sans",
     fontWeight: "700",
   },
 });

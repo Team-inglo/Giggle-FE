@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
   text: {
     color: "black",
     fontSize: 12,
-    fontFamily: "Roboto",
     fontWeight: "500",
     lineHeight: 16,
     letterSpacing: 0.5,
@@ -38,7 +37,6 @@ const styles = StyleSheet.create({
   keyword: {
     color: "#FFB65A",
     fontSize: 12,
-    fontFamily: "Roboto",
     fontWeight: "500",
     lineHeight: 16,
     letterSpacing: 0.5,
@@ -50,7 +48,6 @@ const styles = StyleSheet.create({
   toSignUpButton: {
     color: "#AAAAAA",
     fontSize: 12,
-    fontFamily: "Roboto",
     fontWeight: "500",
     lineHeight: 16,
     letterSpacing: 0.5,

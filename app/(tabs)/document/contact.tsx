@@ -83,14 +83,12 @@ const styles = StyleSheet.create({
   keyword: {
     color: "#FFB65A",
     fontSize: 24,
-    fontFamily: "Inter",
     fontWeight: "600",
     lineHeight: 28.8,
   },
   subTitle: {
     color: "black",
     fontSize: 24,
-    fontFamily: "NotoSans-Bold",
     fontWeight: "600",
     lineHeight: 36,
     height: 150,
@@ -99,7 +97,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     letterSpacing: 0,
     lineHeight: 20,
-    fontFamily: "Roboto-Regular",
   },
   contentContainer: {
     display: "flex",
@@ -115,12 +112,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 22,
     fontWeight: "600",
-    fontFamily: "Inter-SemiBold",
     marginBottom: 8,
   },
   contentDescription: {
     fontSize: 16,
     lineHeight: 22,
-    fontFamily: "Inter-Regular",
   },
 });

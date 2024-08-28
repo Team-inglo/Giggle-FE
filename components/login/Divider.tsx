@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
     color: "black",
     paddingHorizontal: 12,
     fontSize: 12,
-    fontFamily: "Noto Sans",
     fontWeight: "400",
     lineHeight: 18,
   },

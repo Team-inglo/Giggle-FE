@@ -161,14 +161,12 @@ const styles = StyleSheet.create({
   title: {
     color: "black",
     fontSize: 48,
-    fontFamily: "Inter",
     fontWeight: "700",
     lineHeight: 57.6,
   },
   subTitle: {
     color: "black",
     fontSize: 24,
-    fontFamily: "Inter",
     fontWeight: "600",
     lineHeight: 28.8,
     marginBottom: 12,
@@ -217,14 +215,12 @@ const styles = StyleSheet.create({
   activatedText: {
     color: "white",
     fontSize: 12,
-    fontFamily: "Roboto",
     fontWeight: "400",
     lineHeight: 16,
   },
   disabledText: {
     color: "#B3B3B3",
     fontSize: 12,
-    fontFamily: "Roboto",
     fontWeight: "400",
     lineHeight: 16,
   },

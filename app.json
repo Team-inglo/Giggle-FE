@@ -27,7 +27,9 @@
       "permissions": [
         "android.permission.RECORD_AUDIO",
         "android.permission.CAMERA"
-      ]
+      ],
+      "package": "com.anonymous.GiggleFE",
+      "googleServicesFile": "google-services.json"
     },
     "web": {
       "bundler": "metro",
@@ -53,6 +55,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "1cabbfd3-f030-4353-a9a0-bbc0331495da"
+      }
     }
   }
 }

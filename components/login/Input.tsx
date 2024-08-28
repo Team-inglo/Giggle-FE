@@ -63,13 +63,11 @@ const styles = StyleSheet.create({
     flex: 4,
     color: "#383838",
     fontSize: 16,
-    fontFamily: "Inter",
     fontWeight: "400",
   },
   warning: {
     color: "#B3261E",
     fontSize: 12,
-    fontFamily: "Roboto",
     fontWeight: "500",
     lineHeight: 16,
     letterSpacing: 0.5,
