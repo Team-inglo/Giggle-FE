@@ -6,6 +6,7 @@ import { ThemedView } from "@/components/ThemedView";
 import BottomButton from "@/components/tutorial/BottomButton";
 import { UserInfoState } from "@/constants/Users";
 import {useLocalSearchParams, useRouter} from "expo-router";
+import * as ImageManipulator from 'expo-image-manipulator';
 import {useEffect, useState} from "react";
 import { StyleSheet, useWindowDimensions } from "react-native";
 import axios from "axios";
@@ -19,7 +20,7 @@ const SignUpPage = () => {
     이름: "",
     성별: "",
     생년월일: "",
-    발급일만료일: "",
+    유효기간: "",
     국적: "",
   });
   const [modalVisible, setModalVisible] = useState(false);
@@ -36,12 +37,18 @@ const SignUpPage = () => {
   let nationality:any;
   let passport_issue_date:any;
   let passport_expiry_date:any;
-  const ocrPassport = async (imageFile: any) => {
+  const ocrPassport = async (imageUri: any) => {
+    // 이미지를 884x600 픽셀로 조정
+    const manipResult = await ImageManipulator.manipulateAsync(
+        imageUri,
+        [{ resize: { width: 884, height: 600 } }], // 크기를 884x600으로 조정
+        { compress: 1, format: ImageManipulator.SaveFormat.PNG } // 압축하지 않고, JPEG 포맷으로 저장
+    );
     const formData = new FormData();
     const file = {
-      imageFile,
-      name: 'photo.jpg',
-      type: 'image/jpeg',
+      uri: manipResult.uri,
+      name: 'photo.png',
+      type: 'image/png',
     } as unknown as Blob
 
     formData.append('file', file);
@@ -57,21 +64,24 @@ const SignUpPage = () => {
           }
       );
       const data = response.data.data;
-      passport_number = data.passport_number;
+      passport_number = data.passportNumber; // chk
       name = data.name;
       sex = data.sex;
-      date_of_birth = data.date_of_birth;
+      date_of_birth = data.dateOfBirth; // chk
       nationality = data.nationality;
-      passport_issue_date = data.passport_issue_date;
-      passport_expiry_date = data.passport_expiry_date;
+      passport_issue_date = data.passportIssueDate;
+      passport_expiry_date = data.passportExpiryDate; // chk
+
       setUserInfo({
         여권번호:passport_number,
         이름:name,
         성별:sex,
         국적:nationality,
         생년월일:date_of_birth,
-        발급일만료일:passport_issue_date + " " + passport_expiry_date
+        유효기간:passport_issue_date + " ~ \n" + passport_expiry_date
       });
+
+      // console.log('first chk : ', userInfo); // 여기가 문제
     } catch (error) {
       console.error("Error uploading file:", error);
     }
@@ -81,7 +91,7 @@ const SignUpPage = () => {
       const response = await axios(`https://api.giggle-inglo.com/api/v1/applicants/passport`, {
         method: "POST",
         headers: {
-          "Authorization": "Bearer " + {access_token},
+          "Authorization": `Bearer ${access_token}`,
           "Content-Type": "application/json",
         },
         data: {
@@ -94,7 +104,7 @@ const SignUpPage = () => {
           "passport_expiry_date": passport_expiry_date
         }
       });
-      const success = await response.data.data;
+      const success = await response.data.success;
       if(success) {
         router.push({
           pathname:"/signup/foreignRegistrationCard",
@@ -140,8 +150,8 @@ const SignUpPage = () => {
           <InvalidModal
             visible={modalVisible}
             onClose={() => setModalVisible(false)}
-            title="체류자격 부적합"
-            message="체류자격이 D-2 혹은 D-4인 경우에만 회원가입이 가능합니다."
+            title="부적절한 사진"
+            message="적절한 여권사진이 아닙니다. 크기와 해상도를 조절해주세요."
           />
         )}
       </ThemedView>

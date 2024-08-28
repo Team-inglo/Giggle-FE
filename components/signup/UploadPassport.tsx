@@ -15,9 +15,13 @@ const UploadPassPort = ({
   imageUri,
   setImageUri,
 }: Props) => {
+
   const pickImage = async () => {
+    console.log('pickImage 입장');
     const permissionResult =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    console.log('permissionResult');
 
     if (permissionResult.granted === false) {
       alert("이미지 라이브러리 접근 권한이 필요합니다!");
@@ -30,6 +34,9 @@ const UploadPassPort = ({
       aspect: [16, 9],
       quality: 1,
     });
+
+    console.log('result', result);
+
 
     if (!result.canceled) {
       setImageUri(result.assets[0].uri);
@@ -66,6 +73,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     justifyContent: "flex-start",
+    marginTop: 30,
   },
   container: {
     display: "flex",

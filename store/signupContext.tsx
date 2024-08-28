@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
 interface SignupContextType {
-  topik: number;
-  societyUniteProgram: number;
-  sejong: number;
+  topik_score: string;
+  social_integration_program_score: string;
+  sejong_institute_score: string;
   university: string;
   degree: number;
   address: string;
@@ -11,9 +11,9 @@ interface SignupContextType {
 }
 
 const initialSignupData: SignupContextType = {
-  topik: 0,
-  societyUniteProgram: 0,
-  sejong: 0,
+  topik_score: "",
+  social_integration_program_score: "",
+  sejong_institute_score: "",
   university: '',
   degree: 0,
   address: '',
