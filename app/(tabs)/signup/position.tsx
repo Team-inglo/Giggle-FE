@@ -1,6 +1,4 @@
 import PrevButton from "@/components/common/PrevButton";
-import Input from "@/components/login/Input";
-import InvalidModal from "@/components/signup/InvalidModal";
 import { ThemedView } from "@/components/ThemedView";
 import BottomButton from "@/components/tutorial/BottomButton";
 import { useRouter } from "expo-router";

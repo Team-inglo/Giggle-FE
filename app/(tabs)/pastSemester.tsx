@@ -1,5 +1,4 @@
 import BottomPanel from "@/components/extraInfo/BottomPanel";
-import MapWebView from "@/components/extraInfo/MapWebView";
 import PageHeader from "@/components/extraInfo/PageHeader";
 import Input from "@/components/login/Input";
 import { SkipModal } from "@/components/signup/InvalidModal";

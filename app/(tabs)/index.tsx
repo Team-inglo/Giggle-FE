@@ -1,5 +1,5 @@
 import { Redirect } from "expo-router";
 
 export default function HomeScreen() {
-  return <Redirect href="/signup/idPw" />;
+  return <Redirect href="/document" />;
 }
