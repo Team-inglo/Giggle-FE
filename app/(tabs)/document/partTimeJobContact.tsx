@@ -20,7 +20,7 @@ const PartTimeJobContactPage = () => {
     전화번호: "",
     이메일: "bian87@dgu.ac.kr", // <<< - 이 데이터 업데이트 안 되어서 빈 값으로 들어오는 이슈
   });
-  const [currentTab, setCurrentTab] = useState<string>("전화번호");
+  const [currentTab, setCurrentTab] = useState<boolean>(true);
   const [isModalopen, setIsModalOpen] = useState<boolean>(false);
   const [isRepresentive, setIsRepresentive] = useState<boolean>(false);
 
@@ -31,7 +31,7 @@ const PartTimeJobContactPage = () => {
 
   const handleButtonClick = async () => {
     if(!isRepresentive) setIsRepresentive(true);
-    setCurrentTab("전화번호");
+    setCurrentTab(true);
 
     // 유학생담당자까지 이메일을 입력한 경우
     if(isRepresentive) {
@@ -102,12 +102,12 @@ const PartTimeJobContactPage = () => {
           </Text>
         </View>
         <InfoTab
-          currentTab={currentTab}
+          status={currentTab}
           phoneNumber={
             isRepresentive ? representiveInfo.전화번호 : employerInfo.전화번호
           }
           email={isRepresentive ? representiveInfo.이메일 : employerInfo.이메일}
-          onPress={setCurrentTab}
+          setStatus={setCurrentTab}
           onType={isRepresentive ? setRepresentiveInfo : setEmployerInfo}
         />
         <BottomButtonWithText

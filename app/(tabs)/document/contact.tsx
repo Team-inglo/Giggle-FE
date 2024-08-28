@@ -15,7 +15,7 @@ const ContactPage = () => {
     전화번호: "",
     이메일: "",
   });
-  const [currentTab, setCurrentTab] = useState<string>("phone");
+  const [currentTab, setCurrentTab] = useState<boolean>(true);
   const [isModalopen, setIsModalOpen] = useState<boolean>(false);
   
   const router = useRouter();
@@ -80,10 +80,10 @@ const ContactPage = () => {
           </Text>
         </View>
         <InfoTab
-          currentTab={currentTab}
+          status={currentTab}
           phoneNumber={employerInfo.전화번호}
           email={employerInfo.이메일}
-          onPress={setCurrentTab}
+          setStatus={setCurrentTab}
           onType={setEmployerInfo}
         />
         <BottomButtonWithText
