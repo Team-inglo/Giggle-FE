@@ -25,7 +25,8 @@ const TermsPage = () => {
         data: {
           "serial_id": id,
           "password": password,
-          "role": "APPLICANT"
+          "role": "APPLICANT",
+          "device_token":"exampleexample1"
         }
       });
       const access_token = await response.data.data.access_token;
