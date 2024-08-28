@@ -103,4 +103,19 @@ const styles = StyleSheet.create({
     lineHeight: 28.8,
     marginBottom: 12,
   },
+    container: {
+    padding: 16,
+  },
+  bulletItem: {
+    flexDirection: 'row',
+    marginBottom: 8,
+  },
+  bullet: {
+    fontSize: 16,
+    marginRight: 8,
+  },
+  itemText: {
+    fontSize: 16,
+    flex: 1,
+  },
 });

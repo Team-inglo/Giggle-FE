@@ -8,7 +8,7 @@ const ToSignUpPage = () => {
       <Text style={styles.text}>
         <Text style={styles.keyword}>Giggle</Text>이 처음이신가요?
       </Text>
-      <Pressable style={styles.toSignUpContainer} onPress={() => router.push('/signup')}>
+      <Pressable style={styles.toSignUpContainer} onPress={() => router.push('/signup/position')}>
         <Text style={styles.toSignUpButton}>가입하기</Text>
       </Pressable>
     </View>
