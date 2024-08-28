@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import InfoIcon from "@/assets/images/Info.svg";
+import {hidden} from "colorette";
 
 interface InfoItemProps {
   label: string;
@@ -8,11 +9,14 @@ interface InfoItemProps {
 }
 
 const InfoItem: React.FC<InfoItemProps> = ({ label, value }) => {
+  console.log('label : ', label, 'value : ', value);
   return (
     <View style={styles.container}>
       <View style={styles.labelContainer}>
-        <InfoIcon />
-        <Text style={styles.label}>{label}</Text>
+        {label==="테스트" ? (<></>) : (
+            <InfoIcon />
+        )}
+        <Text style={label==="테스트" ? styles.label_hidden :  styles.label}>{label}</Text>
       </View>
       <Text style={styles.value}>{value}</Text>
     </View>
@@ -38,13 +42,16 @@ const styles = StyleSheet.create({
     color: "#1E1E1E",
     marginLeft: 8,
   },
+  label_hidden: {
+    display: "none"
+  },
   value: {
     fontSize: 14,
     fontFamily: "Inter",
     fontWeight: "400",
     lineHeight: 19.6,
     color: "#757575",
-    marginLeft: 25,
+    marginLeft: 0,
   },
 });
 
