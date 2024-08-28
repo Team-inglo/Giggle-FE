@@ -57,7 +57,7 @@ const ResidencePage = () => {
           onMessage={handleWebViewMessage}
         />
         <BottomPanel
-          state={imageUri !== null ? "activated" : "disabled"}
+          state={"activated"}
           text="다음"
           onPress={handleButtonClick}
           onSkip={() => setWhichModalIsVisible("skip")}

@@ -9,7 +9,7 @@ const DonePage = () => {
   const router = useRouter();
   useEffect(() => {
     setTimeout(() => {
-      router.push("/extraInfo");
+      router.push("/home");
     }, 2000);
   }, []);
   return (

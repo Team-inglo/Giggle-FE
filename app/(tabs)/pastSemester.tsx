@@ -20,7 +20,7 @@ const SignUpPage = () => {
   const router = useRouter();
   const { access_token } = useLocalSearchParams(); // 이전 페이지에서 토큰 넘겨줘야 함, 아니면 별도 입력
   const handleButtonClick = () => {
-    updateRegistration();
+    router.push("/signup/done")
   };
 
   const updateRegistration = async () => {
@@ -75,7 +75,7 @@ const SignUpPage = () => {
           placeholder="이수학기(현재까지 이수한 학기)"
         />
         <BottomPanel
-          state={imageUri !== null ? "activated" : "disabled"}
+          state={pastSemester !== null ? "activated" : "disabled"}
           text="완료"
           onPress={handleButtonClick}
           onSkip={() => {}}
