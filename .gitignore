@@ -22,7 +22,7 @@ hybrid-chess-414716-firebase-adminsdk-8dwh1-ecc12438de.json
 
 expo-env.d.ts
 # @end expo-cli
-
+ios
 # OSX
 #
 ios/.DS_Store
