@@ -5,29 +5,114 @@ import UserInfo from "@/components/signup/UserInfo";
 import { ThemedView } from "@/components/ThemedView";
 import BottomButton from "@/components/tutorial/BottomButton";
 import { UserInfoState } from "@/constants/Users";
-import { useRouter } from "expo-router";
-import { useState } from "react";
+import {useLocalSearchParams, useRouter} from "expo-router";
+import {useEffect, useState} from "react";
 import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
+import axios from "axios";
 
 const SignUpPage = () => {
+  const { access_token } = useLocalSearchParams();
   const { height } = useWindowDimensions();
   const [userInfo, setUserInfo] = useState<UserInfoState>({
-    여권번호: "dwaldjldaldlsadh",
-    이름: "dwaldjld",
-    체류자격: "D-2-2",
-    체류기간: "30 Days",
-    발급일: "2019.01.01",
-    국적: "REPUBLIC OF KOREA",
+    여권번호: "",
+    이름: "",
+    성별: "",
+    생년월일: "",
+    발급일만료일: "",
+    국적: "",
   });
   const [modalVisible, setModalVisible] = useState(false);
   const [imageUri, setImageUri] = useState<string | null>(null);
   const router = useRouter();
+  useEffect(() => {
+    if(imageUri !=null) ocrPassport(imageUri);
+  }, [imageUri]);
+
+  let passport_number:any;
+  let name:any;
+  let sex:any;
+  let date_of_birth:any;
+  let nationality:any;
+  let passport_issue_date:any;
+  let passport_expiry_date:any;
+  const ocrPassport = async (imageFile: any) => {
+    const formData = new FormData();
+    const file = {
+      imageFile,
+      name: 'photo.jpg',
+      type: 'image/jpeg',
+    } as unknown as Blob
+
+    formData.append('file', file);
+    try {
+      const response = await axios.post(
+          "https://api.giggle-inglo.com/api/v1/applicants/ocr/passport",
+          formData,
+          {
+            headers: {
+              "Authorization": `Bearer ${access_token}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+      );
+      const data = response.data.data;
+      passport_number = data.passport_number;
+      name = data.name;
+      sex = data.sex;
+      date_of_birth = data.date_of_birth;
+      nationality = data.nationality;
+      passport_issue_date = data.passport_issue_date;
+      passport_expiry_date = data.passport_expiry_date;
+      setUserInfo({
+        여권번호:passport_number,
+        이름:name,
+        성별:sex,
+        국적:nationality,
+        생년월일:date_of_birth,
+        발급일만료일:passport_issue_date + " " + passport_expiry_date
+      });
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
+  };
+  const updatePassport = async () => {
+    try {
+      const response = await axios(`https://api.giggle-inglo.com/api/v1/applicants/passport`, {
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer " + {access_token},
+          "Content-Type": "application/json",
+        },
+        data: {
+          "passport_number": passport_number,
+          "name": name,
+          "sex": sex,
+          "nationality": nationality,
+          "date_of_birth": date_of_birth,
+          "passport_issue_date": passport_issue_date,
+          "passport_expiry_date": passport_expiry_date
+        }
+      });
+      const success = await response.data.data;
+      if(success) {
+        router.push({
+          pathname:"/signup/foreignRegistrationCard",
+          params: {
+            access_token: access_token
+          }
+        });
+      }
+  } catch (error) {
+      console.error("여권 등록 에러", error);
+    }
+  }
   const handleButtonClick = () => {
-    const validStatus =
-      userInfo.체류자격.includes("D-2") || userInfo.체류자격.includes("D-4");
-    validStatus
-      ? router.push("/signup/foreignRegistrationCard")
-      : setModalVisible(true);
+    const isAllInfoFilled = Object.values(userInfo).every(value => value !== "");
+    if (isAllInfoFilled) {
+      updatePassport();
+    } else {
+      setModalVisible(false);
+    }
   };
   return (
     <>
