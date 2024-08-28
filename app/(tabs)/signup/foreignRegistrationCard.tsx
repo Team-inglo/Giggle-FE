@@ -9,6 +9,7 @@ import {useLocalSearchParams, useRouter} from "expo-router";
 import {useEffect, useState} from "react";
 import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import axios from "axios";
+import * as ImageManipulator from "expo-image-manipulator";
 
 const AlienRegistrationCardPage = () => {
   const { access_token } = useLocalSearchParams();
@@ -17,6 +18,7 @@ const AlienRegistrationCardPage = () => {
     등록번호: "",
     체류자격: "",
     발급일자: "",
+    테스트: ""
   });
   const [modalVisible, setModalVisible] = useState(false);
   const [imageUri, setImageUri] = useState<string | null>(null);
@@ -29,12 +31,18 @@ const AlienRegistrationCardPage = () => {
   let registration_number:any;
   let status_of_residence:any;
   let registration_issue_date:any;
-  const ocrRegistration = async (imageFile: any) => {
+  const ocrRegistration = async (imageUri: any) => {
+    // 이미지를 884x600 픽셀로 조정
+    const manipResult = await ImageManipulator.manipulateAsync(
+        imageUri,
+        [{ resize: { width: 522, height: 828 } }], // 크기를 522x828으로 조정
+        { compress: 1, format: ImageManipulator.SaveFormat.PNG } // 압축하지 않고, JPEG 포맷으로 저장
+    );
     const formData = new FormData();
     const file = {
-      imageFile,
-      name: 'photo.jpg',
-      type: 'image/jpeg',
+      uri: manipResult.uri,
+      name: 'photo.png',
+      type: 'image/png',
     } as unknown as Blob
 
     formData.append('file', file);
@@ -50,24 +58,26 @@ const AlienRegistrationCardPage = () => {
           }
       );
       const data = response.data.data;
-      registration_number = data.registration_number;
-      status_of_residence = data.status_of_residence;
-      registration_issue_date = data.registration_issue_date;
+      registration_number = data.registrationNumber;
+      status_of_residence = data.statusOfResidence;
+      registration_issue_date = data.registrationIssueDate;
       setUserInfo({
         등록번호:registration_number,
         체류자격:status_of_residence,
-        발급일자:registration_issue_date
+        발급일자:registration_issue_date,
+        테스트:"   "
       });
     } catch (error) {
       console.error("Error uploading file:", error);
     }
   };
   const updateRegistration = async () => {
+    console.log("진입!!")
     try {
       const response = await axios(`https://api.giggle-inglo.com/api/v1/applicants/registration`, {
         method: "POST",
         headers: {
-          "Authorization": "Bearer " + {access_token},
+          "Authorization": `Bearer ${access_token}`,
           "Content-Type": "application/json",
         },
         data: {
@@ -76,7 +86,7 @@ const AlienRegistrationCardPage = () => {
           "registration_issue_date": registration_issue_date
         }
       });
-      const success = await response.data.data;
+      const success = await response.data.success;
       if(success) {
         router.push({
           pathname:"/extraInfo",
