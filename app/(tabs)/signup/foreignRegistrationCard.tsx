@@ -21,11 +21,7 @@ const AlienRegistrationCardPage = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [imageUri, setImageUri] = useState<string | null>(null);
   const router = useRouter();
-  // const handleButtonClick = () => {
-  //   const validStatus =
-  //     userInfo.체류자격.includes("D-2") || userInfo.체류자격.includes("D-4");
-  //   validStatus ? router.push("/signup/idPw") : setModalVisible(true);
-  // };
+
   useEffect(() => {
     if(imageUri !=null) ocrRegistration(imageUri);
   }, [imageUri]);
@@ -95,7 +91,9 @@ const AlienRegistrationCardPage = () => {
   }
   const handleButtonClick = () => {
     const isAllInfoFilled = Object.values(userInfo).every(value => value !== "");
-    if (isAllInfoFilled) {
+    const validStatus =
+      userInfo.체류자격.includes("D-2") || userInfo.체류자격.includes("D-4");
+    if (isAllInfoFilled && validStatus) {
       updateRegistration();
     } else {
       setModalVisible(false);
