@@ -5,28 +5,103 @@ import UserInfo from "@/components/signup/UserInfo";
 import { ThemedView } from "@/components/ThemedView";
 import BottomButton from "@/components/tutorial/BottomButton";
 import { userRegistrationCardState } from "@/constants/Users";
-import { useRouter } from "expo-router";
-import { useState } from "react";
+import {useLocalSearchParams, useRouter} from "expo-router";
+import {useEffect, useState} from "react";
 import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
+import axios from "axios";
 
 const AlienRegistrationCardPage = () => {
+  const { access_token } = useLocalSearchParams();
   const { height } = useWindowDimensions();
   const [userInfo, setUserInfo] = useState<userRegistrationCardState>({
-    등록번호: "dwaldjldaldlsadh",
-    이름: "dwaldjld",
-    국적: "D-2-2",
-    체류자격: "30 Days",
-    발급일자: "2019.01.01",
-    발급번호: "1234",
+    등록번호: "",
+    체류자격: "",
+    발급일자: "",
   });
   const [modalVisible, setModalVisible] = useState(false);
   const [imageUri, setImageUri] = useState<string | null>(null);
   const router = useRouter();
-  const handleButtonClick = () => {
-    const validStatus =
-      userInfo.국적.includes("D-2") || userInfo.국적.includes("D-4");
-    validStatus ? router.push("/signup/idPw") : setModalVisible(true);
+  // const handleButtonClick = () => {
+  //   const validStatus =
+  //     userInfo.체류자격.includes("D-2") || userInfo.체류자격.includes("D-4");
+  //   validStatus ? router.push("/signup/idPw") : setModalVisible(true);
+  // };
+  useEffect(() => {
+    if(imageUri !=null) ocrRegistration(imageUri);
+  }, [imageUri]);
+
+  let registration_number:any;
+  let status_of_residence:any;
+  let registration_issue_date:any;
+  const ocrRegistration = async (imageFile: any) => {
+    const formData = new FormData();
+    const file = {
+      imageFile,
+      name: 'photo.jpg',
+      type: 'image/jpeg',
+    } as unknown as Blob
+
+    formData.append('file', file);
+    try {
+      const response = await axios.post(
+          "https://api.giggle-inglo.com/api/v1/applicants/ocr/registration",
+          formData,
+          {
+            headers: {
+              "Authorization": `Bearer ${access_token}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+      );
+      const data = response.data.data;
+      registration_number = data.registration_number;
+      status_of_residence = data.status_of_residence;
+      registration_issue_date = data.registration_issue_date;
+      setUserInfo({
+        등록번호:registration_number,
+        체류자격:status_of_residence,
+        발급일자:registration_issue_date
+      });
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
   };
+  const updateRegistration = async () => {
+    try {
+      const response = await axios(`https://api.giggle-inglo.com/api/v1/applicants/registration`, {
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer " + {access_token},
+          "Content-Type": "application/json",
+        },
+        data: {
+          "registration_number": registration_number,
+          "status_of_residence": status_of_residence,
+          "registration_issue_date": registration_issue_date
+        }
+      });
+      const success = await response.data.data;
+      if(success) {
+        router.push({
+          pathname:"/extraInfo",
+          params: {
+            access_token: access_token
+          }
+        });
+      }
+    } catch (error) {
+      console.error("외국인등록증 등록 에러", error);
+    }
+  }
+  const handleButtonClick = () => {
+    const isAllInfoFilled = Object.values(userInfo).every(value => value !== "");
+    if (isAllInfoFilled) {
+      updateRegistration();
+    } else {
+      setModalVisible(false);
+    }
+  };
+
   return (
     <>
       <ThemedView style={[styles.background, { height }]}>
